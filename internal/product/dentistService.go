@@ -5,6 +5,8 @@ import (
 )
 
 type DentistService interface {
+	/* 
+	GetAll() ([]domain.Dentist, error) */
 	GetByID(id int) (domain.Dentist, error)
 }
 
@@ -24,3 +26,7 @@ func (s *dentistService) GetByID(id int) (domain.Dentist, error) {
 	}
 	return d, nil
 }
+
+
+
+

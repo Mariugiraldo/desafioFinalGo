@@ -8,6 +8,7 @@ import (
 
 type DentistRepository interface {
 	GetByID(id int) (domain.Dentist, error)
+	/* GetAll() ([]domain.Dentist, error) */
 }
 
 type dentistRepository struct {
@@ -26,3 +27,7 @@ func (r *dentistRepository) GetByID(id int) (domain.Dentist, error) {
 	}
 	return dentist, nil
 }
+
+/*unc ( repository *dentistRepository)GetAll()([]domain.Dentist, error){
+
+}*/

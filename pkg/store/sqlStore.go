@@ -17,9 +17,9 @@ func NewSqlStore(db *sql.DB) StoreInterface {
 
 func (s *sqlStore) Read(id int) (domain.Dentist, error) {
 	var dentist domain.Dentist
-	query := "SELECT * FROM dentist WHERE id = ?;"
+	query := "SELECT * FROM dentists WHERE id = ?;"
 	row := s.db.QueryRow(query, id)
-	err := row.Scan(&dentist.ID, &dentist.Name, &dentist.LastName, &dentist.Registration)
+	err := row.Scan(&dentist.Id, &dentist.Name, &dentist.LastName, &dentist.Registration)
 	if err != nil {
 		return domain.Dentist{}, err
 	}

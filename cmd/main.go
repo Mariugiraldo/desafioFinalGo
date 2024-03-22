@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	db, err := sql.Open("mysql", "root:29mayo1973@tcp(localhost:3306)/my_db")
+	db, err := sql.Open("mysql", "root:29mayo1973@tcp(localhost:3306)/clinica_odontologica")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -25,17 +25,18 @@ func main() {
 	storage := store.NewSqlStore(db)
 
 	repo := product.NewRepository(storage)
-	service := product.DentistService(repo)
+	service := product.NewService(repo)
 	productHandler := handler.NewProductHandler(service)
 
 	r := gin.Default()
 
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
-	products := r.Group("/dentists")
+	dentists := r.Group("/dentists")
 
 	{
 
-		products.GET(":id", productHandler.GetByID())
+		dentists.GET("/:id", productHandler.GetByID())
+		/* dentists.GET("", productHandler.GetAll()) */
 
 	}
 	r.Run(":8080")
