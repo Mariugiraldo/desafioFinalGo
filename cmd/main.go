@@ -21,7 +21,6 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-
 	storage := store.NewSqlStore(db)
 
 	repo := product.NewRepository(storage)
@@ -41,7 +40,20 @@ func main() {
 		dentists.PUT("", productHandler.Put())
 		dentists.PATCH("", productHandler.Patch())
 		dentists.DELETE("/:id", productHandler.Delete())
+
+		
 	}
-	r.Run(":8080")
+
+	shifts := r.Group("/shifts")
+	{
+		shifts.GET("/:id", productHandler.GetByID())
+
+	}
+
+	r.Run(":8082")
 
 }
+
+
+
+	

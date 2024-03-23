@@ -8,4 +8,8 @@ type StoreInterface interface {
 	UpdateDentist(dentist domain.Dentist) (domain.Dentist, error)
 	PatchDentist(dentist domain.Dentist) (domain.Dentist, error)
 	Delete(id int) 
+
+	ReadShift(id int) (domain.Shift, error)
+	CreateShift(dentist domain.Shift) (domain.Shift, error)
 }
+
