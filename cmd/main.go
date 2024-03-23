@@ -37,7 +37,10 @@ func main() {
 
 		dentists.GET("/:id", productHandler.GetByID())
 		/* dentists.GET("", productHandler.GetAll()) */
-
+		dentists.POST("", productHandler.Post())
+		dentists.PUT("", productHandler.Put())
+		dentists.PATCH("", productHandler.Patch())
+		dentists.DELETE("/:id", productHandler.Delete())
 	}
 	r.Run(":8080")
 
