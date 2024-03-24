@@ -2,7 +2,7 @@ package domain
 
 import "time"
 
-type shift struct {
+type Shift struct {
 	ID            int       `json:"id"`
 	PatientID     int       `json:"patient_id"`
 	DentistID     int       `json:"dentist_id"`
