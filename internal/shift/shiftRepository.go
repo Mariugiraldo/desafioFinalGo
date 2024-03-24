@@ -1,4 +1,5 @@
-package product
+package shift
+
 
 import (
 	"errors"
@@ -7,8 +8,7 @@ import (
 )
 
 type ShiftRepository interface {
-    AddShift(id int) (domain.Shift, error)
-	GetByIDShift(id int) (domain.Shift, error)
+	GetByID(id int) (domain.Shift, error)
 }
 
 type shiftRepository struct {
@@ -19,19 +19,19 @@ func NewRepositoryShift(storage store.StoreInterface) ShiftRepository {
 	return &shiftRepository{storage}
 }
 
-func (repo *shiftRepository) AddShift(id int) (domain.Shift, error) {
-    shift, err := repo.storage.CreateShift(id)
-    if err != nil {
-        return domain.Shift{}, errors.New("shift not found")
-    }
-    return shift, nil
-}
 
-func (repo *shiftRepository) GetByIDShift(id int) (domain.Shift, error) {
+func (repo *shiftRepository) GetByID(id int) (domain.Shift, error) {
 	shift, err := repo.storage.ReadShift(id)
 	if err != nil {
 		return domain.Shift{}, errors.New("shift not found")
 
 	}
 	return shift, nil
+}
+
+
+func (repo *shiftRepository ) CreateShift(shift domain.Shift)(domain.Shift, error){
+	
+	return repo.storage.CreateShift(shift)
+
 }

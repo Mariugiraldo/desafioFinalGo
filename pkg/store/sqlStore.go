@@ -2,6 +2,7 @@ package store
 
 import (
 	"database/sql"
+	"fmt"
 	"repositoryapi/internal/domain"
 )
 
@@ -72,23 +73,26 @@ func (s *sqlStore) Delete(id int) {
 }
 
 func (s *sqlStore) ReadShift(id int) (domain.Shift, error) {
-	var shift domain.Shift
-	query := "SELECT * FROM shifts WHERE id = ?;"
+    var shift domain.Shift
+    query := "SELECT * FROM shifts WHERE id = ?;"
 	row := s.db.QueryRow(query, id)
-	err := row.Scan(&shift.ID, &shift.PatientID, &shift.DentistID, &shift.DischargeDate, &shift.Description)
-	if err != nil {
-		return domain.Shift{}, err
-	}
-	return shift, nil
+    err := row.Scan(&shift.ID, &shift.PatientID, &shift.DentistID, &shift.DischargeDate, &shift.Description)
+    if err != nil {
+     	return domain.Shift{}, err
+    }
+    return shift, nil
 }
+
 
 func (s *sqlStore) CreateShift(shift domain.Shift) (domain.Shift, error) {
-	query := "INSERT INTO shifts (id, patient_id, dentist_id, dischargedate, description) VALUES (?, ?, ?, ?, ?);"
-	stmt, err := s.db.Prepare(query)
+    query := "INSERT INTO shifts (id, patient_id, dentist_id, dischargedate, description) VALUES (?, ?, ?, ?, ?);"
+    stmt, err := s.db.Prepare(query)
 	if err != nil {
-		return domain.Shift{}, err
-	}
-	stmt.Exec(shift.ID, shift.PatientID, shift.DentistID, shift.DischargeDate, shift.Description)
-
-	return shift, nil
+        return domain.Shift{}, err
+    }
+	
+	stmt.Exec(query, shift.ID, shift.PatientID, shift.DentistID, shift.DischargeDate, shift.Description)
+    
+    return shift, nil
 }
+

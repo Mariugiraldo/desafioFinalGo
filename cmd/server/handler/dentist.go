@@ -6,6 +6,7 @@ import (
 	"repositoryapi/internal/product"
 	"repositoryapi/pkg/web"
 	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -18,13 +19,6 @@ func NewProductHandler(s product.DentistService) *dentistHandler {
 		s: s,
 	}
 }
-
-/* func (h *dentistHandler) GetAll() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		dentist, _ := h.s.GetAll()
-		c.JSON(200, dentist)
-	}
-} */
 
 func (h *dentistHandler) GetByID() gin.HandlerFunc {
 	return func(c *gin.Context) {
