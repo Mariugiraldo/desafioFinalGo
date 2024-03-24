@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"repositoryapi/cmd/docs"
 	"repositoryapi/cmd/server/handler"
 	"repositoryapi/internal/product"
 	"repositoryapi/internal/shift"
@@ -9,6 +10,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func main() {
@@ -34,12 +37,14 @@ func main() {
 
 	r := gin.Default()
 
+	docs.SwaggerInfo.Host = "localhost"
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
 
 	dentists := r.Group("/dentists")
 
 	{
-
 		dentists.GET("/:id", productHandler.GetByID())
 		dentists.POST("", productHandler.Post())
 		dentists.PUT("", productHandler.Put())

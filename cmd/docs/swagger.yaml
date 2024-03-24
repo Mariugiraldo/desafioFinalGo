@@ -1,0 +1,150 @@
+info:
+  contact: {}
+paths:
+  /dentists:
+    patch:
+      consumes:
+      - application/json
+      description: update a field dentist
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: dentist
+      summary: update a field dentist
+      tags:
+      - Dentist
+    post:
+      consumes:
+      - application/json
+      description: create dentist
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: dentist
+      summary: post a dentist
+      tags:
+      - Dentist
+    put:
+      consumes:
+      - application/json
+      description: update dentist
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: dentist
+      summary: update a dentist
+      tags:
+      - Dentist
+  /dentists/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: deletes dentist by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: dentist
+      summary: deletes a dentist
+      tags:
+      - Dentist
+  /dentists/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get dentist by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: dentist
+      summary: get a dentist
+      tags:
+      - Dentist
+  /shifts:
+    patch:
+      consumes:
+      - application/json
+      description: update a field shift
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shift
+      summary: update a field shift
+      tags:
+      - Shift
+    put:
+      consumes:
+      - application/json
+      description: update shift
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shift
+      summary: update a shift
+      tags:
+      - Shift
+  /shifts/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: deletes shift by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shift
+      summary: deletes a shift
+      tags:
+      - Shift
+  /shifts/get/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get shifts by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shifts
+      summary: get a shift
+      tags:
+      - Shift
+    post:
+      consumes:
+      - application/json
+      description: get shift by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shift
+      summary: create a shift
+      tags:
+      - Shift
+swagger: "2.0"
