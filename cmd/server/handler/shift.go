@@ -73,3 +73,37 @@ func ( h *shiftHandler) CreateShift() gin.HandlerFunc{
 			c.JSON(200, shift)
 		}
 	}
+
+	func (h *shiftHandler) DeleteShift() gin.HandlerFunc {
+		return func(c *gin.Context) {
+			idParam := c.Param("id")
+			id, err := strconv.Atoi(idParam)
+			if err != nil {
+				web.Failure(c, 400, errors.New("invalid id"))
+				return
+			}
+			h.service.DeleteShift(id)
+			web.Success(c, 200, true)
+	
+		}
+
+	}
+
+	func (handler *shiftHandler) Patch() gin.HandlerFunc {
+		return func(c *gin.Context) {
+			var shift domain.Shift
+			if err := c.BindJSON(&shift); err != nil {
+				c.JSON(400, gin.H{"error": err.Error()})
+				return
+			}
+	
+			shift, err := handler.service.PatchShift(shift)
+			if err != nil {
+				c.JSON(500,gin.H{"error": err.Error()})
+				return
+			}
+	
+			c.JSON(200, shift)
+		}
+	}
+	

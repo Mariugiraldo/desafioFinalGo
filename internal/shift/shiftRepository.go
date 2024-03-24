@@ -11,6 +11,9 @@ type ShiftRepository interface {
 	GetByID(id int) (domain.Shift, error)
 	CreateShift(domain.Shift)(domain.Shift, error)
 	UpdateShift(domain.Shift)(domain.Shift, error)
+	DeleteShift(id int)
+	PatchShift(shift domain.Shift)(domain.Shift, error)
+
 }
 
 type shiftRepository struct {
@@ -41,5 +44,17 @@ func (repo *shiftRepository ) CreateShift(shift domain.Shift)(domain.Shift, erro
 func (repo *shiftRepository ) UpdateShift(shift domain.Shift)(domain.Shift, error){
 	
 	return repo.storage.UpdateShift(shift)
+
+}
+
+func (repo *shiftRepository ) DeleteShift(id int){
+	repo.storage.DeleteShift(id)
+	return
+
+}
+
+func (r *shiftRepository ) PatchShift(shift domain.Shift)(domain.Shift, error){
+	
+	return r.storage.PatchShift(shift)
 
 }

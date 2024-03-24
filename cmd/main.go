@@ -53,7 +53,8 @@ func main() {
 		shifts.GET("/:id", shiftHandler.GetByIDShift())
 		shifts.POST("", shiftHandler.CreateShift())
 		shifts.PUT("", shiftHandler.PutShift())
-
+		shifts.DELETE("/:id", shiftHandler.DeleteShift())
+		shifts.PATCH("", shiftHandler.Patch())
 	}
 
 	r.Run(":8082")

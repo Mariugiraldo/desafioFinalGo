@@ -9,6 +9,8 @@ type ShiftService interface {
 	GetByID(id int) (domain.Shift, error)
 	CreateShift(domain.Shift)(domain.Shift, error)
 	UpdateShift(domain.Shift)(domain.Shift, error)
+	DeleteShift(id int)
+	PatchShift(domain.Shift)(domain.Shift, error)
 }
 
 type shiftService struct {
@@ -44,3 +46,18 @@ func (service *shiftService) UpdateShift( shift domain.Shift) (domain.Shift, err
     return shift, nil
 }
 
+func (service *shiftService) DeleteShift(id int) {
+	service.repo.DeleteShift(id)
+
+	return
+
+	}
+
+	func (service *shiftService) PatchShift( shift domain.Shift) (domain.Shift, error) {
+		shift, err := service.repo.PatchShift(shift)
+		if err != nil {
+			return domain.Shift{}, err
+		}
+		return shift, nil
+	}
+	

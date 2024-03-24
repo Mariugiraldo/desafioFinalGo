@@ -117,3 +117,25 @@ func (s *sqlStore) UpdateShift(shift domain.Shift) (domain.Shift, error) {
 
 	return shift, nil
 }
+
+func (s *sqlStore) DeleteShift(id int) {
+	query := "DELETE FROM shifts WHERE id =?;"
+	stmt, err := s.db.Prepare(query)
+	if err != nil {
+		return
+	}
+	stmt.Exec(id)
+
+	return
+}
+
+func (s *sqlStore) PatchShift(shift domain.Shift) (domain.Shift, error) {
+	query := "UPDATE shifts SET description =? WHERE id =?;"
+	stmt, err := s.db.Prepare(query)
+	if err != nil {
+		return domain.Shift{}, err
+	}
+	stmt.Exec(shift.Description, shift.ID)
+
+	return shift, nil
+}
