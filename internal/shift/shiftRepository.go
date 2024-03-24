@@ -9,6 +9,8 @@ import (
 
 type ShiftRepository interface {
 	GetByID(id int) (domain.Shift, error)
+	CreateShift(domain.Shift)(domain.Shift, error)
+	UpdateShift(domain.Shift)(domain.Shift, error)
 }
 
 type shiftRepository struct {
@@ -33,5 +35,11 @@ func (repo *shiftRepository) GetByID(id int) (domain.Shift, error) {
 func (repo *shiftRepository ) CreateShift(shift domain.Shift)(domain.Shift, error){
 	
 	return repo.storage.CreateShift(shift)
+
+}
+
+func (repo *shiftRepository ) UpdateShift(shift domain.Shift)(domain.Shift, error){
+	
+	return repo.storage.UpdateShift(shift)
 
 }

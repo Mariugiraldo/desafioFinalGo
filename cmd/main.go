@@ -51,6 +51,8 @@ func main() {
 	shifts := r.Group("/shifts")
 	{
 		shifts.GET("/:id", shiftHandler.GetByIDShift())
+		shifts.POST("", shiftHandler.CreateShift())
+		shifts.PUT("", shiftHandler.PutShift())
 
 	}
 

@@ -7,6 +7,8 @@ import (
 
 type ShiftService interface {
 	GetByID(id int) (domain.Shift, error)
+	CreateShift(domain.Shift)(domain.Shift, error)
+	UpdateShift(domain.Shift)(domain.Shift, error)
 }
 
 type shiftService struct {
@@ -25,3 +27,20 @@ func (service *shiftService) GetByID(id int) (domain.Shift, error) {
 	}
 	return shift, nil
 }
+
+func (service *shiftService) CreateShift(shift domain.Shift)(domain.Shift, error){
+	shiftCreate, err := service.repo.CreateShift(shift)
+	if err != nil{
+		return domain.Shift{}, err
+	}
+	return shiftCreate, nil
+}
+
+func (service *shiftService) UpdateShift( shift domain.Shift) (domain.Shift, error) {
+    shift, err := service.repo.UpdateShift(shift)
+    if err != nil {
+        return domain.Shift{}, err
+    }
+    return shift, nil
+}
+

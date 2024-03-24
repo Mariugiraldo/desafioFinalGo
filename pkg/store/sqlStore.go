@@ -91,8 +91,29 @@ func (s *sqlStore) CreateShift(shift domain.Shift) (domain.Shift, error) {
         return domain.Shift{}, err
     }
 	
-	stmt.Exec(query, shift.ID, shift.PatientID, shift.DentistID, shift.DischargeDate, shift.Description)
-    
+	result, err := stmt.Exec(shift.ID, shift.PatientID, shift.DentistID, shift.DischargeDate, shift.Description)
+	if err != nil {
+		fmt.Println(err)
+		return domain.Shift{}, err
+	}
+	result.RowsAffected()
     return shift, nil
 }
 
+func (s *sqlStore) UpdateShift(shift domain.Shift) (domain.Shift, error) {
+	query := "UPDATE shifts SET patient_id =?, dentist_id =?, dischargedate =?, description =? WHERE id =?;"
+	stmt, err := s.db.Prepare(query)
+	if err != nil {
+		fmt.Println(err)
+		return domain.Shift{}, err
+	}
+	result, err := stmt.Exec(shift.PatientID, shift.DentistID, shift.DischargeDate, shift.Description, shift.ID)
+	if err != nil{
+		fmt.Println(err)
+		return domain.Shift{}, err
+		
+	}
+	result.RowsAffected()
+
+	return shift, nil
+}

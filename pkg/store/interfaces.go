@@ -11,5 +11,6 @@ type StoreInterface interface {
 
 	ReadShift(id int) (domain.Shift, error)
 	CreateShift(dentist domain.Shift) (domain.Shift, error)
+	UpdateShift(domain.Shift)(domain.Shift, error)
 }
 

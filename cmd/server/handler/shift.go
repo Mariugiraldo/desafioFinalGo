@@ -1,13 +1,13 @@
 package handler
 
 import (
-	
 	"errors"
+	"repositoryapi/internal/domain"
+	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/web"
 	"strconv"
-	"github.com/gin-gonic/gin"
-	"repositoryapi/internal/shift"
 
+	"github.com/gin-gonic/gin"
 )
 
 type shiftHandler struct {
@@ -36,3 +36,40 @@ func (h *shiftHandler) GetByIDShift() gin.HandlerFunc {
 	}
 
 }
+
+func ( h *shiftHandler) CreateShift() gin.HandlerFunc{
+	return func(c *gin.Context){
+		var shift domain.Shift
+		if err := c.BindJSON(&shift); err != nil {
+			c.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+
+		shift, err := h.service.CreateShift(shift)
+		if err != nil {
+			c.JSON(500,gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(200, shift)
+	}
+
+	}
+
+	func (handler *shiftHandler) PutShift() gin.HandlerFunc {
+		return func(c *gin.Context) {
+			var shift domain.Shift
+			if err := c.BindJSON(&shift); err != nil {
+				c.JSON(400, gin.H{"error": err.Error()})
+				return
+			}
+	
+			shift, err := handler.service.UpdateShift(shift)
+			if err != nil {
+				c.JSON(500,gin.H{"error": err.Error()})
+				return
+			}
+	
+			c.JSON(200, shift)
+		}
+	}
