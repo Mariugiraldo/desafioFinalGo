@@ -5,6 +5,7 @@ import (
 	"repositoryapi/cmd/server/handler"
 	"repositoryapi/internal/dentist"
 	"repositoryapi/internal/patient"
+	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/store"
 
 	"github.com/gin-gonic/gin"
@@ -33,6 +34,11 @@ func main() {
 	servicePat := patient.NewPatientService(repoPat)
 	patientHandler := handler.NewPatientHandler(servicePat)
 
+	storageshi := store.NewSqlStoreShift(db)
+	repoShi := shift.NewShiftRepository(storageshi)
+	serviceShi := shift.NewShiftService(repoShi)
+	shiftHandler := handler.NewShiftHandler(serviceShi)
+
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
 
@@ -55,6 +61,16 @@ func main() {
 		patients.PUT("", patientHandler.UpdatePatient())
 		patients.PATCH("", patientHandler.PatchPatient())
 		patients.DELETE("/:id", patientHandler.DeletePatient)
+	}
+
+	shifts := r.Group("/shifts")
+	{
+		shifts.GET("/all", shiftHandler.FindAll())
+		shifts.GET("/:id", shiftHandler.FindShiftById())
+		shifts.POST("", shiftHandler.CreateShift())
+		shifts.PUT("", shiftHandler.UpdateShift())
+		shifts.PATCH("", shiftHandler.PatchShift())
+		shifts.DELETE("/:id", shiftHandler.DeleteShift())
 	}
 
 	r.Run(":8080")

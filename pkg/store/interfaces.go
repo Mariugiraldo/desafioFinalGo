@@ -21,7 +21,7 @@ type PatientStoreInterface interface {
 }
 
 type ShiftStoreInterface interface {
-	ReadAll() ([]domain.Dentist, error)
+	ReadAllShift() ([]domain.Shift, error)
 	ReadShift(id int) (domain.Shift, error)
 	CreateShift(shift domain.Shift) (domain.Shift, error)
 	UpdateShift(shift domain.Shift) (domain.Shift, error)
