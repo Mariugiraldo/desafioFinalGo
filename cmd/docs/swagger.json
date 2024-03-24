@@ -1,0 +1,230 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/dentists": {
+            "put": {
+                "description": "update dentist",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dentist"
+                ],
+                "summary": "update a dentist",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "dentist"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "create dentist",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dentist"
+                ],
+                "summary": "post a dentist",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "dentist"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a field dentist",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dentist"
+                ],
+                "summary": "update a field dentist",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "dentist"
+                        }
+                    }
+                }
+            }
+        },
+        "/dentists/delete/{id}": {
+            "delete": {
+                "description": "deletes dentist by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dentist"
+                ],
+                "summary": "deletes a dentist",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "dentist"
+                        }
+                    }
+                }
+            }
+        },
+        "/dentists/get/{id}": {
+            "get": {
+                "description": "get dentist by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dentist"
+                ],
+                "summary": "get a dentist",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "dentist"
+                        }
+                    }
+                }
+            }
+        },
+        "/shifts": {
+            "put": {
+                "description": "update shift",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shift"
+                ],
+                "summary": "update a shift",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "shift"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "update a field shift",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shift"
+                ],
+                "summary": "update a field shift",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "shift"
+                        }
+                    }
+                }
+            }
+        },
+        "/shifts/delete/{id}": {
+            "delete": {
+                "description": "deletes shift by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shift"
+                ],
+                "summary": "deletes a shift",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "shift"
+                        }
+                    }
+                }
+            }
+        },
+        "/shifts/get/{id}": {
+            "get": {
+                "description": "get shifts by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shift"
+                ],
+                "summary": "get a shift",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "shifts"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "get shift by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shift"
+                ],
+                "summary": "create a shift",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "shift"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
