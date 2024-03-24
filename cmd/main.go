@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"repositoryapi/cmd/server/handler"
 	"repositoryapi/internal/product"
+	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/store"
 
 	"github.com/gin-gonic/gin"
@@ -21,27 +22,41 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-
 	storage := store.NewSqlStore(db)
 
 	repo := product.NewRepository(storage)
 	service := product.NewService(repo)
 	productHandler := handler.NewProductHandler(service)
 
+	shiftRepo := shift.NewRepositoryShift(storage)
+	shiftService := shift.NewServiceShift(shiftRepo)
+	shiftHandler := handler.NewShiftHandler(shiftService)
+
 	r := gin.Default()
 
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
+
 	dentists := r.Group("/dentists")
 
 	{
 
 		dentists.GET("/:id", productHandler.GetByID())
-		/* dentists.GET("", productHandler.GetAll()) */
 		dentists.POST("", productHandler.Post())
 		dentists.PUT("", productHandler.Put())
 		dentists.PATCH("", productHandler.Patch())
 		dentists.DELETE("/:id", productHandler.Delete())
+
 	}
-	r.Run(":8080")
+
+	shifts := r.Group("/shifts")
+	{
+		shifts.GET("/:id", shiftHandler.GetByIDShift())
+		shifts.POST("", shiftHandler.CreateShift())
+		shifts.PUT("", shiftHandler.PutShift())
+		shifts.DELETE("/:id", shiftHandler.DeleteShift())
+		shifts.PATCH("", shiftHandler.Patch())
+	}
+
+	r.Run(":8082")
 
 }

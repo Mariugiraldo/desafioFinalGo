@@ -12,7 +12,7 @@ type DentistRepository interface {
 	UpdateDentist(dentist domain.Dentist)(domain.Dentist, error)
 	PatchDentist(dentist domain.Dentist)(domain.Dentist, error)
 	DeleteDentist(id int) 
-	/* GetAll() ([]domain.Dentist, error) */
+	
 }
 
 type dentistRepository struct {
