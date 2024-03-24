@@ -11,17 +11,21 @@ type StoreInterface interface {
 }
 
 type PatientStoreInterface interface {
-	Read(id int) (domain.Patient, error)
+	ReadAllPatient() ([]domain.Patient, error)
+	ReadPatient(id int) (domain.Patient, error)
 	CreatePatient(patient domain.Patient) (domain.Patient, error)
 	UpdatePatient(patient domain.Patient) (domain.Patient, error)
 	PatchPatient(patient domain.Patient) (domain.Patient, error)
-	Delete(id int)
+	DeletePatient(id int) error
+	ExistPatient(id int) bool
 }
 
 type ShiftStoreInterface interface {
-	Read(id int) (domain.Shift, error)
+	ReadAll() ([]domain.Dentist, error)
+	ReadShift(id int) (domain.Shift, error)
 	CreateShift(shift domain.Shift) (domain.Shift, error)
 	UpdateShift(shift domain.Shift) (domain.Shift, error)
 	PatchShift(shift domain.Shift) (domain.Shift, error)
-	Delete(id int)
+	DeleteShift(id int) error
+	ExistShift(id int) bool
 }

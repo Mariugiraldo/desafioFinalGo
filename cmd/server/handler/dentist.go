@@ -2,18 +2,19 @@ package handler
 
 import (
 	"errors"
+	"repositoryapi/internal/dentist"
 	"repositoryapi/internal/domain"
-	"repositoryapi/internal/product"
 	"repositoryapi/pkg/web"
 	"strconv"
+
 	"github.com/gin-gonic/gin"
 )
 
 type dentistHandler struct {
-	s product.DentistService
+	s dentist.DentistService
 }
 
-func NewProductHandler(s product.DentistService) *dentistHandler {
+func NewProductHandler(s dentist.DentistService) *dentistHandler {
 	return &dentistHandler{
 		s: s,
 	}
@@ -55,7 +56,7 @@ func (handler *dentistHandler) Post() gin.HandlerFunc {
 
 		dentist, err := handler.s.CreateDentist(dentist)
 		if err != nil {
-			c.JSON(500,gin.H{"error": err.Error()})
+			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -73,7 +74,7 @@ func (handler *dentistHandler) Put() gin.HandlerFunc {
 
 		dentist, err := handler.s.UpdateDentist(dentist)
 		if err != nil {
-			c.JSON(500,gin.H{"error": err.Error()})
+			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -91,7 +92,7 @@ func (handler *dentistHandler) Patch() gin.HandlerFunc {
 
 		dentist, err := handler.s.PatchDentist(dentist)
 		if err != nil {
-			c.JSON(500,gin.H{"error": err.Error()})
+			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -108,7 +109,7 @@ func (h *dentistHandler) Delete() gin.HandlerFunc {
 			return
 		}
 		dentist, err := h.s.GetByID(id)
-		if err != nil{
+		if err != nil {
 			web.Failure(c, 404, errors.New("dentist not found"))
 			return
 		}
@@ -118,4 +119,3 @@ func (h *dentistHandler) Delete() gin.HandlerFunc {
 	}
 
 }
-

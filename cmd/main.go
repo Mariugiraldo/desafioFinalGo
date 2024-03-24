@@ -3,7 +3,8 @@ package main
 import (
 	"database/sql"
 	"repositoryapi/cmd/server/handler"
-	"repositoryapi/internal/product"
+	"repositoryapi/internal/dentist"
+	"repositoryapi/internal/patient"
 	"repositoryapi/pkg/store"
 
 	"github.com/gin-gonic/gin"
@@ -23,16 +24,19 @@ func main() {
 	}
 
 	storage := store.NewSqlStore(db)
-
-	repo := product.NewRepository(storage)
-	service := product.NewService(repo)
+	repo := dentist.NewRepository(storage)
+	service := dentist.NewService(repo)
 	productHandler := handler.NewProductHandler(service)
 
+	storagePat := store.NewSqlStorePatient(db)
+	repoPat := patient.NewPatientRepository(storagePat)
+	servicePat := patient.NewPatientService(repoPat)
+	patientHandler := handler.NewPatientHandler(servicePat)
+
 	r := gin.Default()
-
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
-	dentists := r.Group("/dentists")
 
+	dentists := r.Group("/dentists")
 	{
 
 		dentists.GET("/:id", productHandler.GetByID())
@@ -42,6 +46,17 @@ func main() {
 		dentists.PATCH("", productHandler.Patch())
 		dentists.DELETE("/:id", productHandler.Delete())
 	}
+
+	patients := r.Group("/patients")
+	{
+		patients.GET("/all", patientHandler.FindAll())
+		patients.GET("/:id", patientHandler.FindPatientById())
+		patients.POST("", patientHandler.CreatePatient())
+		patients.PUT("", patientHandler.UpdatePatient())
+		patients.PATCH("", patientHandler.PatchPatient())
+		patients.DELETE("/:id", patientHandler.DeletePatient)
+	}
+
 	r.Run(":8080")
 
 }
