@@ -57,3 +57,5 @@ func (r *dentistRepository ) DeleteDentist(id int){
 
 }
 
+
+

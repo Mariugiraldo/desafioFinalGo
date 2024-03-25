@@ -60,6 +60,8 @@ func main() {
 		shifts.PUT("", shiftHandler.PutShift())
 		shifts.DELETE("/:id", shiftHandler.DeleteShift())
 		shifts.PATCH("", shiftHandler.Patch())
+		shifts.POST("", shiftHandler.CreateShiftByDni())
+		/* shifts.GET("/shifts", shiftHandler.GetShiftsByPatientDNI()) */
 	}
 
 	r.Run(":8082")

@@ -149,3 +149,46 @@ func ( h *shiftHandler) CreateShift() gin.HandlerFunc{
 		}
 	}
 	
+	func ( h *shiftHandler) CreateShiftByDni() gin.HandlerFunc{
+		return func(c *gin.Context){
+			var shift domain.Shift
+			if err := c.BindJSON(&shift); err != nil {
+				c.JSON(400, gin.H{"error": err.Error()})
+				return
+			}
+			
+			dni:= shift.DNI
+			registration := shift.registration
+			dischargeDate := shift.DischargeDate
+			description := shift.Description
+			
+
+			createdShift, err := h.service.CreateShiftByDni( dischargeDate, description, dni, registration)
+			if err != nil {
+				c.JSON(500,gin.H{"error": err.Error()})
+				return
+			}
+	
+			c.JSON(200, createdShift)
+		}
+	
+}
+
+/* func (h *shiftHandler) GetShiftsByPatientDNI() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		dni := c.Query("dni")
+		if dni == ""{c.JSON(500, gin.H{"error": "DNI not exist"})
+
+		}
+
+		shifts, err := h.service.GetShiftsByPatientDNI(dni)
+		if err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			
+			return
+		}
+
+		c.JSON(200, shifts)
+	}
+}
+		 */

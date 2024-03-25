@@ -139,3 +139,5 @@ func (s *sqlStore) PatchShift(shift domain.Shift) (domain.Shift, error) {
 
 	return shift, nil
 }
+
+
