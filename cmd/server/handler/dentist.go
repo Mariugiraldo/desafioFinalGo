@@ -3,7 +3,7 @@ package handler
 import (
 	"errors"
 	"repositoryapi/internal/domain"
-	"repositoryapi/internal/product"
+	"repositoryapi/internal/dentist"
 	"repositoryapi/pkg/web"
 	"strconv"
 
@@ -11,10 +11,10 @@ import (
 )
 
 type dentistHandler struct {
-	s product.DentistService
+	s dentist.DentistService
 }
 
-func NewProductHandler(s product.DentistService) *dentistHandler {
+func NewProductHandler(s dentist.DentistService) *dentistHandler {
 	return &dentistHandler{
 		s: s,
 	}

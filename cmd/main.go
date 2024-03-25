@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"repositoryapi/cmd/docs"
 	"repositoryapi/cmd/server/handler"
-	"repositoryapi/internal/product"
+	"repositoryapi/internal/dentist"
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/store"
 
@@ -27,9 +27,9 @@ func main() {
 	}
 	storage := store.NewSqlStore(db)
 
-	repo := product.NewRepository(storage)
-	service := product.NewService(repo)
-	productHandler := handler.NewProductHandler(service)
+	repo := dentist.NewRepository(storage)
+	service := dentist.NewService(repo)
+	dentistHandler := handler.NewProductHandler(service)
 
 	shiftRepo := shift.NewRepositoryShift(storage)
 	shiftService := shift.NewServiceShift(shiftRepo)
@@ -45,11 +45,11 @@ func main() {
 	dentists := r.Group("/dentists")
 
 	{
-		dentists.GET("/:id", productHandler.GetByID())
-		dentists.POST("", productHandler.Post())
-		dentists.PUT("", productHandler.Put())
-		dentists.PATCH("", productHandler.Patch())
-		dentists.DELETE("/:id", productHandler.Delete())
+		dentists.GET("/:id", dentistHandler.GetByID())
+		dentists.POST("", dentistHandler.Post())
+		dentists.PUT("", dentistHandler.Put())
+		dentists.PATCH("", dentistHandler.Patch())
+		dentists.DELETE("/:id", dentistHandler.Delete())
 
 	}
 

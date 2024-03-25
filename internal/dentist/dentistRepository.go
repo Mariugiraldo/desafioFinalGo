@@ -1,5 +1,4 @@
-package product
-
+package dentist
 import (
 	"errors"
 	"repositoryapi/internal/domain"
