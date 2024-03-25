@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-	db, err := sql.Open("mysql", "root:29mayo1973@tcp(localhost:3306)/clinica_odontologica")
+	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/turnos-odontologia")
 	if err != nil {
 		panic(err.Error())
 	}
