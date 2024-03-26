@@ -1,6 +1,5 @@
 package shift
 
-
 import (
 	"errors"
 	"repositoryapi/internal/domain"
@@ -9,11 +8,10 @@ import (
 
 type ShiftRepository interface {
 	GetByID(id int) (domain.Shift, error)
-	CreateShift(domain.Shift)(domain.Shift, error)
-	UpdateShift(domain.Shift)(domain.Shift, error)
+	CreateShift(domain.Shift) (domain.Shift, error)
+	UpdateShift(domain.Shift) (domain.Shift, error)
 	DeleteShift(id int)
-	PatchShift(shift domain.Shift)(domain.Shift, error)
-
+	PatchShift(shift domain.Shift) (domain.Shift, error)
 }
 
 type shiftRepository struct {
@@ -24,7 +22,6 @@ func NewRepositoryShift(storage store.StoreInterface) ShiftRepository {
 	return &shiftRepository{storage}
 }
 
-
 func (repo *shiftRepository) GetByID(id int) (domain.Shift, error) {
 	shift, err := repo.storage.ReadShift(id)
 	if err != nil {
@@ -34,27 +31,26 @@ func (repo *shiftRepository) GetByID(id int) (domain.Shift, error) {
 	return shift, nil
 }
 
+func (repo *shiftRepository) CreateShift(shift domain.Shift) (domain.Shift, error) {
 
-func (repo *shiftRepository ) CreateShift(shift domain.Shift)(domain.Shift, error){
-	
 	return repo.storage.CreateShift(shift)
 
 }
 
-func (repo *shiftRepository ) UpdateShift(shift domain.Shift)(domain.Shift, error){
-	
+func (repo *shiftRepository) UpdateShift(shift domain.Shift) (domain.Shift, error) {
+
 	return repo.storage.UpdateShift(shift)
 
 }
 
-func (repo *shiftRepository ) DeleteShift(id int){
+func (repo *shiftRepository) DeleteShift(id int) {
 	repo.storage.DeleteShift(id)
 	return
 
 }
 
-func (r *shiftRepository ) PatchShift(shift domain.Shift)(domain.Shift, error){
-	
+func (r *shiftRepository) PatchShift(shift domain.Shift) (domain.Shift, error) {
+
 	return r.storage.PatchShift(shift)
 
 }

@@ -4,7 +4,8 @@ import (
 	"database/sql"
 	"repositoryapi/cmd/docs"
 	"repositoryapi/cmd/server/handler"
-	"repositoryapi/internal/product"
+	"repositoryapi/internal/dentist"
+	"repositoryapi/internal/patient"
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/store"
 
@@ -16,7 +17,7 @@ import (
 
 func main() {
 
-	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/turnos-odontologia")
+	db, err := sql.Open("mysql", "root:Jeifer05@tcp(localhost:3306)/turnos-odontologia")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -27,9 +28,14 @@ func main() {
 	}
 	storage := store.NewSqlStore(db)
 
-	repo := product.NewRepository(storage)
-	service := product.NewService(repo)
+	repo := dentist.NewRepository(storage)
+	service := dentist.NewService(repo)
 	productHandler := handler.NewProductHandler(service)
+
+	storagePat := store.NewSqlStorePatient(db)
+	repoPat := patient.NewPatientRepository(storagePat)
+	servicePat := patient.NewPatientService(repoPat)
+	patientHandler := handler.NewPatientHandler(servicePat)
 
 	shiftRepo := shift.NewRepositoryShift(storage)
 	shiftService := shift.NewServiceShift(shiftRepo)
@@ -43,7 +49,6 @@ func main() {
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
 
 	dentists := r.Group("/dentists")
-
 	{
 		dentists.GET("/:id", productHandler.GetByID())
 		dentists.POST("", productHandler.Post())
@@ -51,6 +56,16 @@ func main() {
 		dentists.PATCH("", productHandler.Patch())
 		dentists.DELETE("/:id", productHandler.Delete())
 
+	}
+
+	patients := r.Group("/patients")
+	{
+		patients.GET("/all", patientHandler.FindAll())
+		patients.GET("/:id", patientHandler.FindPatientById())
+		patients.POST("", patientHandler.CreatePatient())
+		patients.PUT("", patientHandler.UpdatePatient())
+		patients.PATCH("", patientHandler.PatchPatient())
+		patients.DELETE("/:id", patientHandler.DeletePatient)
 	}
 
 	shifts := r.Group("/shifts")
@@ -62,6 +77,6 @@ func main() {
 		shifts.PATCH("", shiftHandler.Patch())
 	}
 
-	r.Run(":8082")
+	r.Run(":8080")
 
 }
