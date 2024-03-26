@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"repositoryapi/internal/domain"
+	"time"
 )
 
 func NewSqlStorePatient(db *sql.DB) PatientStoreInterface {
@@ -23,12 +24,21 @@ func (s *sqlStore) ReadAllPatient() ([]domain.Patient, error) {
 
 func (s *sqlStore) ReadPatient(id int) (domain.Patient, error) {
 	var patient domain.Patient
+	var dischargeDateStr string // temporary variable to hold the discharge date as a string
 	query := "SELECT * FROM patients WHERE id = ?;"
 	row := s.db.QueryRow(query, id)
-	err := row.Scan(&patient.ID, &patient.Name, &patient.LastName, &patient.Home, &patient.DNI, &patient.DischargeDate)
+	err := row.Scan(&patient.ID, &patient.Name, &patient.LastName, &patient.Home, &patient.DNI, &dischargeDateStr) // scan the discharge date into the temporary string variable
 	if err != nil {
 		return domain.Patient{}, err
 	}
+
+	// Convert dischargeDateStr from string to time.Time
+	dischargeDate, err := time.Parse("2006-01-02", dischargeDateStr)
+	if err != nil {
+		return domain.Patient{}, err
+	}
+	patient.DischargeDate = dischargeDate // now you can assign the time.Time value to DischargeDate
+
 	return patient, nil
 }
 
@@ -54,7 +64,7 @@ func (s *sqlStore) CreatePatient(pat domain.Patient) (domain.Patient, error) {
 }
 
 func (s *sqlStore) UpdatePatient(pat domain.Patient) (domain.Patient, error) {
-	query := "UPDATE dentists SET name = ?, lastName = ?, Home = ?, DNI = ?, DischargeDate = ? WHERE id = ?;"
+	query := "UPDATE patients SET name = ?, lastName = ?, home = ?, DNI = ?, dischargeDate = ? WHERE id = ?;"
 	stmt, err := s.db.Prepare(query)
 	if err != nil {
 		log.Fatal(err)

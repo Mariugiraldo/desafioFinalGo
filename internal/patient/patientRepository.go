@@ -2,6 +2,7 @@ package patient
 
 import (
 	"errors"
+	"fmt"
 	"repositoryapi/internal/domain"
 	"repositoryapi/pkg/store"
 )
@@ -30,6 +31,7 @@ func (p *patientRepository) ReadAllPatient() ([]domain.Patient, error) {
 func (p *patientRepository) FindPatientById(id int) (domain.Patient, error) {
 	patient, err := p.storage.ReadPatient(id)
 	if err != nil {
+		fmt.Println("repoooo", err)
 		return domain.Patient{}, errors.New("patient not found")
 	}
 	return patient, nil
