@@ -2,6 +2,10 @@ package main
 
 import (
 	"database/sql"
+	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"repositoryapi/cmd/docs"
 	"repositoryapi/cmd/server/handler"
 	"repositoryapi/internal/dentist"
@@ -9,10 +13,6 @@ import (
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/middleware"
 	"repositoryapi/pkg/store"
-	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func main() {
@@ -41,7 +41,6 @@ func main() {
 	shiftService := shift.NewServiceShift(shiftRepo)
 	shiftHandler := handler.NewShiftHandler(shiftService)
 
-	
 	r := gin.New()
 	r.Use(gin.Recovery())
 	r.Use(middleware.Logger())
@@ -49,16 +48,14 @@ func main() {
 	docs.SwaggerInfo.Host = "localhost:8080"
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-
-	
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
 
 	dentists := r.Group("/dentists")
 	{
 		dentists.GET("/:id", dentistHandler.GetByID())
-		dentists.POST("", middleware.Authentication(), dentistHandler.Post()) 
-		dentists.PUT("", middleware.Authentication(), dentistHandler.Put())  
-		dentists.PATCH("", middleware.Authentication(), dentistHandler.Patch())  
+		dentists.POST("", middleware.Authentication(), dentistHandler.Post())
+		dentists.PUT("", middleware.Authentication(), dentistHandler.Put())
+		dentists.PATCH("", middleware.Authentication(), dentistHandler.Patch())
 		dentists.DELETE("/:id", middleware.Authentication(), dentistHandler.Delete())
 	}
 
@@ -79,7 +76,7 @@ func main() {
 		shifts.PUT("", middleware.Authentication(), shiftHandler.PutShift())
 		shifts.DELETE("/:id", middleware.Authentication(), shiftHandler.DeleteShift())
 		shifts.PATCH("", middleware.Authentication(), shiftHandler.Patch())
-		
+
 	}
 
 	r.Run(":8080")

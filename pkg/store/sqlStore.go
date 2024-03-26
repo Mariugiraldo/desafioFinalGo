@@ -73,31 +73,30 @@ func (s *sqlStore) Delete(id int) {
 }
 
 func (s *sqlStore) ReadShift(id int) (domain.Shift, error) {
-    var shift domain.Shift
-    query := "SELECT * FROM shifts WHERE id = ?;"
+	var shift domain.Shift
+	query := "SELECT * FROM shifts WHERE id = ?;"
 	row := s.db.QueryRow(query, id)
-    err := row.Scan(&shift.ID, &shift.PatientID, &shift.DentistID, &shift.DischargeDate, &shift.Description)
-    if err != nil {
-     	return domain.Shift{}, err
-    }
-    return shift, nil
+	err := row.Scan(&shift.ID, &shift.PatientID, &shift.DentistID, &shift.DischargeDate, &shift.Description)
+	if err != nil {
+		return domain.Shift{}, err
+	}
+	return shift, nil
 }
 
-
 func (s *sqlStore) CreateShift(shift domain.Shift) (domain.Shift, error) {
-    query := "INSERT INTO shifts (id, patient_id, dentist_id, dischargedate, description) VALUES (?, ?, ?, ?, ?);"
-    stmt, err := s.db.Prepare(query)
+	query := "INSERT INTO shifts (id, patient_id, dentist_id, dischargedate, description) VALUES (?, ?, ?, ?, ?);"
+	stmt, err := s.db.Prepare(query)
 	if err != nil {
-        return domain.Shift{}, err
-    }
-	
+		return domain.Shift{}, err
+	}
+
 	result, err := stmt.Exec(shift.ID, shift.PatientID, shift.DentistID, shift.DischargeDate, shift.Description)
 	if err != nil {
 		fmt.Println(err)
 		return domain.Shift{}, err
 	}
 	result.RowsAffected()
-    return shift, nil
+	return shift, nil
 }
 
 func (s *sqlStore) UpdateShift(shift domain.Shift) (domain.Shift, error) {
@@ -108,10 +107,10 @@ func (s *sqlStore) UpdateShift(shift domain.Shift) (domain.Shift, error) {
 		return domain.Shift{}, err
 	}
 	result, err := stmt.Exec(shift.PatientID, shift.DentistID, shift.DischargeDate, shift.Description, shift.ID)
-	if err != nil{
+	if err != nil {
 		fmt.Println(err)
 		return domain.Shift{}, err
-		
+
 	}
 	result.RowsAffected()
 
@@ -139,7 +138,3 @@ func (s *sqlStore) PatchShift(shift domain.Shift) (domain.Shift, error) {
 
 	return shift, nil
 }
-
-
-
-
