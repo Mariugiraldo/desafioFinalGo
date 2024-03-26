@@ -14,7 +14,7 @@ import (
 
 func main() {
 
-	db, err := sql.Open("mysql", "root:29mayo1973@tcp(localhost:3306)/clinica_odontologica")
+	db, err := sql.Open("mysql", "root:Jeifer05@tcp(localhost:3306)/turnos-odontologia")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -25,6 +25,7 @@ func main() {
 	}
 
 	storage := store.NewSqlStore(db)
+
 	repo := dentist.NewRepository(storage)
 	service := dentist.NewService(repo)
 	productHandler := handler.NewProductHandler(service)
