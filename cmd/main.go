@@ -79,8 +79,7 @@ func main() {
 		shifts.PUT("", middleware.Authentication(), shiftHandler.PutShift())
 		shifts.DELETE("/:id", middleware.Authentication(), shiftHandler.DeleteShift())
 		shifts.PATCH("", middleware.Authentication(), shiftHandler.Patch())
-		/* shifts.POST("", shiftHandler.CreateShiftByDni()) */
-		/* shifts.GET("/shifts", shiftHandler.GetShiftsByPatientDNI()) */
+		
 	}
 
 	r.Run(":8080")
