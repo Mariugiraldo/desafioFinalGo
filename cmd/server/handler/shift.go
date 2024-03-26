@@ -4,11 +4,10 @@ import (
 	"errors"
 	"repositoryapi/internal/domain"
 
+	"github.com/gin-gonic/gin"
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/web"
 	"strconv"
-
-	"github.com/gin-gonic/gin"
 )
 
 type shiftHandler struct {

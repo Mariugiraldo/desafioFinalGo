@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"log"
 	"repositoryapi/internal/domain"
-	"time"
 )
 
 func NewSqlStorePatient(db *sql.DB) PatientStoreInterface {
@@ -31,14 +30,6 @@ func (s *sqlStore) ReadPatient(id int) (domain.Patient, error) {
 	if err != nil {
 		return domain.Patient{}, err
 	}
-
-	// Convert dischargeDateStr from string to time.Time
-	dischargeDate, err := time.Parse("2006-01-02", dischargeDateStr)
-	if err != nil {
-		return domain.Patient{}, err
-	}
-	patient.DischargeDate = dischargeDate // now you can assign the time.Time value to DischargeDate
-
 	return patient, nil
 }
 

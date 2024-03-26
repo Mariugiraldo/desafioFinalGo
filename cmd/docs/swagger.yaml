@@ -44,6 +44,21 @@ paths:
       summary: update a dentist
       tags:
       - Dentist
+  /dentists/{id}:
+    get:
+      consumes:
+      - application/json
+      description: get dentist by id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: dentist
+      summary: get a dentist
+      tags:
+      - Dentist
   /dentists/delete/{id}:
     delete:
       consumes:
@@ -57,21 +72,6 @@ paths:
           schema:
             type: dentist
       summary: deletes a dentist
-      tags:
-      - Dentist
-  /dentists/get/{id}:
-    get:
-      consumes:
-      - application/json
-      description: get dentist by id
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: dentist
-      summary: get a dentist
       tags:
       - Dentist
   /shifts:

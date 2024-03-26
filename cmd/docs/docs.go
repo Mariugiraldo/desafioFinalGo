@@ -103,7 +103,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/dentists/get/{id}": {
+        "/dentists/{id}": {
             "get": {
                 "description": "get dentist by id",
                 "consumes": [
