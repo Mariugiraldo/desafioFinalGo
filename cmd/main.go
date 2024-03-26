@@ -46,7 +46,7 @@ func main() {
 	r.Use(gin.Recovery())
 	r.Use(middleware.Logger())
 
-	docs.SwaggerInfo.Host = "localhost"
+	docs.SwaggerInfo.Host = "localhost:8080"
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 

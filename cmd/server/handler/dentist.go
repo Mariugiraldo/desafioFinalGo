@@ -21,14 +21,21 @@ func NewProductHandler(s dentist.DentistService) *dentistHandler {
 }
 
 // GetById godoc
-// swagger:parameters id query
+// swagger:parameters
+// param
+// 		in: path
+// 		name: id
+// 		schema:
+// 			type: integer
+// 		required: true
+// 		description: identifier
 // @Summary get a dentist
 // @Tags Dentist
 // @Description get dentist by id
 // @Accept json
 // @Produce json
 // @Success 200 {dentist} domain.Dentist
-// @Router /dentists/get/{id} [get]
+// @Router /dentists/{id} [get]
 func (h *dentistHandler) GetByID() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
