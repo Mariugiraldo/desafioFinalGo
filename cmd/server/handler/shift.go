@@ -2,8 +2,8 @@ package handler
 
 import (
 	"errors"
-	"net/http"
 	"repositoryapi/internal/domain"
+
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/web"
 	"strconv"
@@ -12,21 +12,23 @@ import (
 )
 
 type shiftHandler struct {
-	s shift.ShiftServiceInterface
+	service shift.ShiftService
 }
 
-func NewShiftHandler(s shift.ShiftServiceInterface) *shiftHandler {
-	return &shiftHandler{s}
+func NewShiftHandler(s shift.ShiftService) *shiftHandler {
+	return &shiftHandler{service: s}
 }
 
-func (h *shiftHandler) FindAll() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		shifts, _ := h.s.ReadAllShift()
-		c.JSON(200, shifts)
-	}
-}
-
-func (h *shiftHandler) FindShiftById() gin.HandlerFunc {
+// GetById godoc
+// swagger:parameters id query
+// @Summary get a shift
+// @Tags Shift
+// @Description get shifts by id
+// @Accept json
+// @Produce json
+// @Success 200 {shifts} domain.Dentist
+// @Router /shifts/get/{id} [get]
+func (h *shiftHandler) GetByIDShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
 		id, err := strconv.Atoi(idParam)
@@ -34,69 +36,82 @@ func (h *shiftHandler) FindShiftById() gin.HandlerFunc {
 			web.Failure(c, 400, errors.New("invalid id"))
 			return
 		}
-		shift, err := h.s.FindShiftById(id)
+		shift, err := h.service.GetByID(id)
 		if err != nil {
 			web.Failure(c, 404, errors.New("shift not found"))
 			return
 		}
-		web.Success(c, http.StatusOK, shift)
+		web.Success(c, 200, shift)
 
 	}
+
 }
 
-func (handler *shiftHandler) CreateShift() gin.HandlerFunc {
+// CreateShift godoc
+// swagger:parameters id query
+// @Summary create a shift
+// @Tags Shift
+// @Description get shift by id
+// @Accept json
+// @Produce json
+// @Success 200 {shift} domain.Dentist
+// @Router /shifts/get/{id} [post]
+func (h *shiftHandler) CreateShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var shift domain.Shift
 		if err := c.BindJSON(&shift); err != nil {
-			web.Failure(c, 400, err)
+			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
 
-		shift, err := handler.s.CreateShift(shift)
+		shift, err := h.service.CreateShift(shift)
 		if err != nil {
-			web.Failure(c, 500, err)
+			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
-		web.Success(c, http.StatusCreated, shift)
 
+		c.JSON(200, shift)
 	}
+
 }
 
-func (handler *shiftHandler) UpdateShift() gin.HandlerFunc {
+// Put godoc
+// swagger:parameters id query
+// @Summary update a shift
+// @Tags Shift
+// @Description update shift
+// @Accept json
+// @Produce json
+// @Success 200 {shift} domain.Shift
+// @Router /shifts [put]
+func (handler *shiftHandler) PutShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var shift domain.Shift
 		if err := c.BindJSON(&shift); err != nil {
-			web.Failure(c, 400, err)
+			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
 
-		shift, err := handler.s.UpdateShift(shift)
+		shift, err := handler.service.UpdateShift(shift)
 		if err != nil {
-			web.Failure(c, 500, err)
+			c.JSON(500, gin.H{"error": err.Error()})
 			return
 		}
-		web.Success(c, http.StatusOK, shift)
+
+		c.JSON(200, shift)
 	}
 }
 
-func (handler *shiftHandler) PatchShift() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		var shift domain.Shift
-		if err := c.BindJSON(&shift); err != nil {
-			web.Failure(c, 400, err)
-			return
-		}
-
-		shift, err := handler.s.PatchShift(shift)
-		if err != nil {
-			web.Failure(c, 500, err)
-			return
-		}
-		web.Success(c, http.StatusOK, shift)
-	}
-}
-
-func (handler *shiftHandler) DeleteShift() gin.HandlerFunc {
+// DeleteShift godoc
+// swagger:parameters id query
+// @Summary deletes a shift
+// @Tags Shift
+// @Description deletes shift by id
+// @Accept json
+// @Produce json
+// @Success 200 {shift} domain.Shift
+// @Router /shifts/delete/{id} [delete]
+func (h *shiftHandler) DeleteShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
 		id, err := strconv.Atoi(idParam)
@@ -104,11 +119,35 @@ func (handler *shiftHandler) DeleteShift() gin.HandlerFunc {
 			web.Failure(c, 400, errors.New("invalid id"))
 			return
 		}
-		err = handler.s.DeleteShift(id)
-		if err != nil {
-			web.Failure(c, 500, err)
+		h.service.DeleteShift(id)
+		web.Success(c, 200, true)
+
+	}
+
+}
+
+// swagger:parameters id query
+// @Summary update a field shift
+// @Tags Shift
+// @Description update a field shift
+// @Accept json
+// @Produce json
+// @Success 200 {shift} domain.Shift
+// @Router /shifts [patch]
+func (handler *shiftHandler) Patch() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var shift domain.Shift
+		if err := c.BindJSON(&shift); err != nil {
+			c.JSON(400, gin.H{"error": err.Error()})
 			return
 		}
-		web.Success(c, http.StatusOK, nil)
+
+		shift, err := handler.service.PatchShift(shift)
+		if err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(200, shift)
 	}
 }

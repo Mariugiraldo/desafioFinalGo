@@ -8,6 +8,12 @@ type StoreInterface interface {
 	UpdateDentist(dentist domain.Dentist) (domain.Dentist, error)
 	PatchDentist(dentist domain.Dentist) (domain.Dentist, error)
 	Delete(id int)
+
+	ReadShift(id int) (domain.Shift, error)
+	CreateShift(domain.Shift) (domain.Shift, error)
+	UpdateShift(domain.Shift) (domain.Shift, error)
+	DeleteShift(id int)
+	PatchShift(domain.Shift) (domain.Shift, error)
 }
 
 type PatientStoreInterface interface {
@@ -18,14 +24,4 @@ type PatientStoreInterface interface {
 	PatchPatient(patient domain.Patient) (domain.Patient, error)
 	DeletePatient(id int) error
 	ExistPatient(id int) bool
-}
-
-type ShiftStoreInterface interface {
-	ReadAllShift() ([]domain.Shift, error)
-	ReadShift(id int) (domain.Shift, error)
-	CreateShift(shift domain.Shift) (domain.Shift, error)
-	UpdateShift(shift domain.Shift) (domain.Shift, error)
-	PatchShift(shift domain.Shift) (domain.Shift, error)
-	DeleteShift(id int) error
-	ExistShift(id int) bool
 }

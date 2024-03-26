@@ -6,47 +6,51 @@ import (
 	"repositoryapi/pkg/store"
 )
 
-type ShiftRepositoryInterface interface {
-	ReadAllShift() ([]domain.Shift, error)
-	FindShiftById(id int) (domain.Shift, error)
-	CreateShift(shift domain.Shift) (domain.Shift, error)
-	UpdateShift(shift domain.Shift) (domain.Shift, error)
+type ShiftRepository interface {
+	GetByID(id int) (domain.Shift, error)
+	CreateShift(domain.Shift) (domain.Shift, error)
+	UpdateShift(domain.Shift) (domain.Shift, error)
+	DeleteShift(id int)
 	PatchShift(shift domain.Shift) (domain.Shift, error)
-	DeleteShift(id int) error
 }
 
 type shiftRepository struct {
-	storage store.ShiftStoreInterface
+	storage store.StoreInterface
 }
 
-func NewShiftRepository(storage store.ShiftStoreInterface) ShiftRepositoryInterface {
+func NewRepositoryShift(storage store.StoreInterface) ShiftRepository {
 	return &shiftRepository{storage}
 }
 
-func (s *shiftRepository) ReadAllShift() ([]domain.Shift, error) {
-	return s.storage.ReadAllShift()
-}
-
-func (s *shiftRepository) FindShiftById(id int) (domain.Shift, error) {
-	shift, err := s.storage.ReadShift(id)
+func (repo *shiftRepository) GetByID(id int) (domain.Shift, error) {
+	shift, err := repo.storage.ReadShift(id)
 	if err != nil {
-		return domain.Shift{}, errors.New("Shift not found")
+		return domain.Shift{}, errors.New("shift not found")
+
 	}
 	return shift, nil
 }
 
-func (s *shiftRepository) CreateShift(shift domain.Shift) (domain.Shift, error) {
-	return s.storage.CreateShift(shift)
+func (repo *shiftRepository) CreateShift(shift domain.Shift) (domain.Shift, error) {
+
+	return repo.storage.CreateShift(shift)
+
 }
 
-func (s *shiftRepository) UpdateShift(shift domain.Shift) (domain.Shift, error) {
-	return s.storage.UpdateShift(shift)
+func (repo *shiftRepository) UpdateShift(shift domain.Shift) (domain.Shift, error) {
+
+	return repo.storage.UpdateShift(shift)
+
 }
 
-func (s *shiftRepository) PatchShift(shift domain.Shift) (domain.Shift, error) {
-	return s.storage.UpdateShift(shift)
+func (repo *shiftRepository) DeleteShift(id int) {
+	repo.storage.DeleteShift(id)
+	return
+
 }
 
-func (s *shiftRepository) DeleteShift(id int) error {
-	return s.storage.DeleteShift(id)
+func (r *shiftRepository) PatchShift(shift domain.Shift) (domain.Shift, error) {
+
+	return r.storage.PatchShift(shift)
+
 }

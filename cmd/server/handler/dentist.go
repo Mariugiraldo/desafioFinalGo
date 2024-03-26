@@ -20,13 +20,15 @@ func NewProductHandler(s dentist.DentistService) *dentistHandler {
 	}
 }
 
-/* func (h *dentistHandler) GetAll() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		dentist, _ := h.s.GetAll()
-		c.JSON(200, dentist)
-	}
-} */
-
+// GetById godoc
+// swagger:parameters id query
+// @Summary get a dentist
+// @Tags Dentist
+// @Description get dentist by id
+// @Accept json
+// @Produce json
+// @Success 200 {dentist} domain.Dentist
+// @Router /dentists/get/{id} [get]
 func (h *dentistHandler) GetByID() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
@@ -46,6 +48,15 @@ func (h *dentistHandler) GetByID() gin.HandlerFunc {
 
 }
 
+// Post godoc
+// swagger:parameters id query
+// @Summary post a dentist
+// @Tags Dentist
+// @Description create dentist
+// @Accept json
+// @Produce json
+// @Success 200 {dentist} domain.Dentist
+// @Router /dentists [post]
 func (handler *dentistHandler) Post() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var dentist domain.Dentist
@@ -64,6 +75,15 @@ func (handler *dentistHandler) Post() gin.HandlerFunc {
 	}
 }
 
+// Put godoc
+// swagger:parameters id query
+// @Summary update a dentist
+// @Tags Dentist
+// @Description update dentist
+// @Accept json
+// @Produce json
+// @Success 200 {dentist} domain.Dentist
+// @Router /dentists [put]
 func (handler *dentistHandler) Put() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var dentist domain.Dentist
@@ -82,6 +102,15 @@ func (handler *dentistHandler) Put() gin.HandlerFunc {
 	}
 }
 
+// Patch godoc
+// swagger:parameters id query
+// @Summary update a field dentist
+// @Tags Dentist
+// @Description update a field dentist
+// @Accept json
+// @Produce json
+// @Success 200 {dentist} domain.Dentist
+// @Router /dentists [patch]
 func (handler *dentistHandler) Patch() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var dentist domain.Dentist
@@ -100,8 +129,18 @@ func (handler *dentistHandler) Patch() gin.HandlerFunc {
 	}
 }
 
+// DeleteDentist godoc
+// swagger:parameters id query
+// @Summary deletes a dentist
+// @Tags Dentist
+// @Description deletes dentist by id
+// @Accept json
+// @Produce json
+// @Success 200 {dentist} domain.Dentist
+// @Router /dentists/delete/{id} [delete]
 func (h *dentistHandler) Delete() gin.HandlerFunc {
 	return func(c *gin.Context) {
+
 		idParam := c.Param("id")
 		id, err := strconv.Atoi(idParam)
 		if err != nil {

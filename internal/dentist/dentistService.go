@@ -1,12 +1,10 @@
-package dentist
+package product
 
 import (
 	"repositoryapi/internal/domain"
 )
 
 type DentistService interface {
-	/*
-		GetAll() ([]domain.Dentist, error) */
 	GetByID(id int) (domain.Dentist, error)
 	CreateDentist(dentist domain.Dentist) (domain.Dentist, error)
 	UpdateDentist(dentist domain.Dentist) (domain.Dentist, error)
