@@ -6,7 +6,6 @@ import (
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/web"
 	"strconv"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -147,7 +146,10 @@ func ( h *shiftHandler) CreateShift() gin.HandlerFunc{
 	
 			c.JSON(200, shift)
 		}
+
 	}
+	
+	/* 
 	
 	func ( h *shiftHandler) CreateShiftByDni() gin.HandlerFunc{
 		return func(c *gin.Context){
@@ -172,7 +174,7 @@ func ( h *shiftHandler) CreateShift() gin.HandlerFunc{
 			c.JSON(200, createdShift)
 		}
 	
-}
+} */
 
 /* func (h *shiftHandler) GetShiftsByPatientDNI() gin.HandlerFunc {
 	return func(c *gin.Context) {

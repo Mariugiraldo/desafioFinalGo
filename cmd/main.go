@@ -6,6 +6,7 @@ import (
 	"repositoryapi/cmd/server/handler"
 	"repositoryapi/internal/dentist"
 	"repositoryapi/internal/shift"
+	"repositoryapi/pkg/middleware"
 	"repositoryapi/pkg/store"
 
 	"github.com/gin-gonic/gin"
@@ -35,32 +36,36 @@ func main() {
 	shiftService := shift.NewServiceShift(shiftRepo)
 	shiftHandler := handler.NewShiftHandler(shiftService)
 
-	r := gin.Default()
+	
+	r := gin.New()
+	r.Use(gin.Recovery())
+	r.Use(middleware.Logger())
 
 	docs.SwaggerInfo.Host = "localhost"
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+
+	
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
 
 	dentists := r.Group("/dentists")
 
 	{
 		dentists.GET("/:id", dentistHandler.GetByID())
-		dentists.POST("", dentistHandler.Post())
-		dentists.PUT("", dentistHandler.Put())
-		dentists.PATCH("", dentistHandler.Patch())
-		dentists.DELETE("/:id", dentistHandler.Delete())
-
+		dentists.POST("", middleware.Authentication(), dentistHandler.Post()) 
+		dentists.PUT("", middleware.Authentication(), dentistHandler.Put())  
+		dentists.PATCH("", middleware.Authentication(), dentistHandler.Patch())  
+		dentists.DELETE("/:id", middleware.Authentication(), dentistHandler.Delete())
 	}
 
 	shifts := r.Group("/shifts")
 	{
 		shifts.GET("/:id", shiftHandler.GetByIDShift())
-		shifts.POST("", shiftHandler.CreateShift())
-		shifts.PUT("", shiftHandler.PutShift())
-		shifts.DELETE("/:id", shiftHandler.DeleteShift())
-		shifts.PATCH("", shiftHandler.Patch())
-		shifts.POST("", shiftHandler.CreateShiftByDni())
+		shifts.POST("", middleware.Authentication(), shiftHandler.CreateShift())
+		shifts.PUT("", middleware.Authentication(), shiftHandler.PutShift())
+		shifts.DELETE("/:id", middleware.Authentication(), shiftHandler.DeleteShift())
+		shifts.PATCH("", middleware.Authentication(), shiftHandler.Patch())
+		/* shifts.POST("", shiftHandler.CreateShiftByDni()) */
 		/* shifts.GET("/shifts", shiftHandler.GetShiftsByPatientDNI()) */
 	}
 

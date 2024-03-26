@@ -12,7 +12,7 @@ type ShiftRepository interface {
 	UpdateShift(domain.Shift) (domain.Shift, error)
 	DeleteShift(id int)
 	PatchShift(shift domain.Shift) (domain.Shift, error)
-	CreateShiftByDni(dischargeDate string, description string, dni string, registration string) (domain.Shift, error)
+	/* CreateShiftByDni(dischargeDate string, description string, dni string, registration string) (domain.Shift, error) */
 	/* GetShiftsByPatientDNI(patientDNI string)([]domain.Shift, error) */
 }
 
@@ -57,14 +57,14 @@ func (r *shiftRepository) PatchShift(shift domain.Shift) (domain.Shift, error) {
 
 }
 
-func (repo *shiftRepository) CreateShiftByDni(dischargeDate string, description string, dni string, registration string) (domain.Shift, error) {
+/* func (repo *shiftRepository) CreateShiftByDni(dischargeDate string, description string, dni string, registration string) (domain.Shift, error) {
 
 	createdShift, err := repo.storage.CreateShiftByDni(dischargeDate, description, dni, registration)
 	if err != nil {
 		return domain.Shift{}, err
 	}
 	return createdShift, nil
-}
+} */
 
 /* func (r *shiftRepository) GetShiftsByPatientDNI(patientDNI string) ([]domain.Shift, error) {
 	shift, err := repo.storage.ReadShift(id)

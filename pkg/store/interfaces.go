@@ -14,7 +14,7 @@ type StoreInterface interface {
 	UpdateShift(domain.Shift)(domain.Shift, error)
 	DeleteShift(id int) 
 	PatchShift(domain.Shift)(domain.Shift, error)
-	CreateShiftByDni(dischargeDate string, description string,  dni string, registration string )(domain.Shift,error)
+	/* CreateShiftByDni(dischargeDate string, description string,  dni string, registration string )(domain.Shift,error) */
 	/* GetShiftsByPatientDNI(patientDNI string)([]domain.Shift, error)
  */
 }
