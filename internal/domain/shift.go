@@ -1,7 +1,6 @@
 package domain
 
 
-
 type Shift struct {
 	ID           int       `json:"id" binding:"required"`
 	PatientID     int       `json:"patient_id" binding:"required"`

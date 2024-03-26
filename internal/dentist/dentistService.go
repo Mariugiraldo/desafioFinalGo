@@ -5,12 +5,11 @@ import (
 )
 
 type DentistService interface {
-	
 	GetByID(id int) (domain.Dentist, error)
-	CreateDentist(dentist domain.Dentist)(domain.Dentist, error)
-	UpdateDentist(dentist domain.Dentist)(domain.Dentist, error)
-	PatchDentist(dentist domain.Dentist)(domain.Dentist, error)
-	Delete(id int) 
+	CreateDentist(dentist domain.Dentist) (domain.Dentist, error)
+	UpdateDentist(dentist domain.Dentist) (domain.Dentist, error)
+	PatchDentist(dentist domain.Dentist) (domain.Dentist, error)
+	Delete(id int)
 }
 
 type dentistService struct {
@@ -30,28 +29,28 @@ func (service *dentistService) GetByID(id int) (domain.Dentist, error) {
 	return dentist, nil
 }
 
-func (service *dentistService) CreateDentist( dentist domain.Dentist) (domain.Dentist, error) {
-    dentist, err := service.r.CreateDentist(dentist)
-    if err != nil {
-        return domain.Dentist{}, err
-    }
-    return dentist, nil
+func (service *dentistService) CreateDentist(dentist domain.Dentist) (domain.Dentist, error) {
+	dentist, err := service.r.CreateDentist(dentist)
+	if err != nil {
+		return domain.Dentist{}, err
+	}
+	return dentist, nil
 }
 
-func (service *dentistService) UpdateDentist( dentist domain.Dentist) (domain.Dentist, error) {
-    dentist, err := service.r.UpdateDentist(dentist)
-    if err != nil {
-        return domain.Dentist{}, err
-    }
-    return dentist, nil
+func (service *dentistService) UpdateDentist(dentist domain.Dentist) (domain.Dentist, error) {
+	dentist, err := service.r.UpdateDentist(dentist)
+	if err != nil {
+		return domain.Dentist{}, err
+	}
+	return dentist, nil
 }
 
-func (service *dentistService) PatchDentist( dentist domain.Dentist) (domain.Dentist, error) {
-    dentist, err := service.r.PatchDentist(dentist)
-    if err != nil {
-        return domain.Dentist{}, err
-    }
-    return dentist, nil
+func (service *dentistService) PatchDentist(dentist domain.Dentist) (domain.Dentist, error) {
+	dentist, err := service.r.PatchDentist(dentist)
+	if err != nil {
+		return domain.Dentist{}, err
+	}
+	return dentist, nil
 }
 
 func (service *dentistService) Delete(id int) {
@@ -59,6 +58,4 @@ func (service *dentistService) Delete(id int) {
 
 	return
 
-	}
-	
-	
+}

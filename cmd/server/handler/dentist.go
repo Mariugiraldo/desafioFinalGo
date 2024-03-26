@@ -2,8 +2,8 @@ package handler
 
 import (
 	"errors"
-	"repositoryapi/internal/domain"
 	"repositoryapi/internal/dentist"
+	"repositoryapi/internal/domain"
 	"repositoryapi/pkg/web"
 	"strconv"
 
@@ -19,6 +19,7 @@ func NewProductHandler(s dentist.DentistService) *dentistHandler {
 		s: s,
 	}
 }
+
 // GetById godoc
 // swagger:parameters id query
 // @Summary get a dentist
@@ -46,6 +47,7 @@ func (h *dentistHandler) GetByID() gin.HandlerFunc {
 	}
 
 }
+
 // Post godoc
 // swagger:parameters id query
 // @Summary post a dentist
@@ -72,6 +74,7 @@ func (handler *dentistHandler) Post() gin.HandlerFunc {
 		c.JSON(200, dentist)
 	}
 }
+
 // Put godoc
 // swagger:parameters id query
 // @Summary update a dentist
@@ -98,6 +101,7 @@ func (handler *dentistHandler) Put() gin.HandlerFunc {
 		c.JSON(200, dentist)
 	}
 }
+
 // Patch godoc
 // swagger:parameters id query
 // @Summary update a field dentist

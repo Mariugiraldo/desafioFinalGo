@@ -5,10 +5,10 @@ import (
 	"repositoryapi/cmd/docs"
 	"repositoryapi/cmd/server/handler"
 	"repositoryapi/internal/dentist"
+	"repositoryapi/internal/patient"
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/middleware"
 	"repositoryapi/pkg/store"
-
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	swaggerFiles "github.com/swaggo/files"
@@ -32,6 +32,11 @@ func main() {
 	service := dentist.NewService(repo)
 	dentistHandler := handler.NewProductHandler(service)
 
+	storagePat := store.NewSqlStorePatient(db)
+	repoPat := patient.NewPatientRepository(storagePat)
+	servicePat := patient.NewPatientService(repoPat)
+	patientHandler := handler.NewPatientHandler(servicePat)
+
 	shiftRepo := shift.NewRepositoryShift(storage)
 	shiftService := shift.NewServiceShift(shiftRepo)
 	shiftHandler := handler.NewShiftHandler(shiftService)
@@ -49,13 +54,22 @@ func main() {
 	r.GET("/ping", func(c *gin.Context) { c.String(200, "pong") })
 
 	dentists := r.Group("/dentists")
-
 	{
 		dentists.GET("/:id", dentistHandler.GetByID())
 		dentists.POST("", middleware.Authentication(), dentistHandler.Post()) 
 		dentists.PUT("", middleware.Authentication(), dentistHandler.Put())  
 		dentists.PATCH("", middleware.Authentication(), dentistHandler.Patch())  
 		dentists.DELETE("/:id", middleware.Authentication(), dentistHandler.Delete())
+	}
+
+	patients := r.Group("/patients")
+	{
+		patients.GET("/all", patientHandler.FindAll())
+		patients.GET("/:id", patientHandler.FindPatientById())
+		patients.POST("", patientHandler.CreatePatient())
+		patients.PUT("", patientHandler.UpdatePatient())
+		patients.PATCH("", patientHandler.PatchPatient())
+		patients.DELETE("/:id", patientHandler.DeletePatient)
 	}
 
 	shifts := r.Group("/shifts")
@@ -69,6 +83,6 @@ func main() {
 		/* shifts.GET("/shifts", shiftHandler.GetShiftsByPatientDNI()) */
 	}
 
-	r.Run(":8082")
+	r.Run(":8080")
 
 }

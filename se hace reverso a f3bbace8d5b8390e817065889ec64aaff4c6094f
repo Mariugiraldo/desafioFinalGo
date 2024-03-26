@@ -1,0 +1,86 @@
+[33mcommit f3bbace8d5b8390e817065889ec64aaff4c6094f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mjeiferdev[m[33m, [m[1;31morigin/jeiferdev[m[33m)[m
+Author: JeiferJC <jeifer.as@gmail.com>
+Date:   Sat Mar 23 22:49:38 2024 -0500
+
+    Se elimina carpeta repetida 'desafioFinalGo'
+
+[33mcommit 7b8e4bfc8afd742005d0d0650e83db6b3f9911ba[m
+Author: JeiferJC <jeifer.as@gmail.com>
+Date:   Sat Mar 23 22:47:11 2024 -0500
+
+    Se agrega la entidad shift, con Crud y conexion a db
+
+[33mcommit 9ab0f22cd573dd7f6644e64d6136447113322ae1[m
+Author: JeiferJC <jeifer.as@gmail.com>
+Date:   Sat Mar 23 22:08:15 2024 -0500
+
+    Se agrega la entidad Patients, con el CRUD y acceso a base de datos
+
+[33mcommit 7ea6e3d6c5e86c9b2c77c95442763871fa3405e4[m
+Author: JeiferJC <jeifer.as@gmail.com>
+Date:   Sat Mar 23 19:04:08 2024 -0500
+
+    agregado patients y shift a la interface
+
+[33mcommit a14a6d9f753cb4a3b91c82d6eedb8e29cdc71f98[m[33m ([m[1;32mmain[m[33m)[m
+Merge: 2b1a9ca 7f90b1e
+Author: Mariugiraldo <93294912+Mariugiraldo@users.noreply.github.com>
+Date:   Fri Mar 22 19:30:38 2024 -0500
+
+    Merge pull request #3 from Mariugiraldo/mariagiraldo
+    
+    CRUD realizado entidad Dentist
+
+[33mcommit 7f90b1e1b86bb9e082d30d983526d96113d93926[m
+Author: maria.eugenia <mariugiraldo40@gmail.com>
+Date:   Fri Mar 22 19:30:03 2024 -0500
+
+    CRUD realizado entidad Dentist
+
+[33mcommit 2b1a9ca04b5cf8701432e73969f70e9932ffb406[m
+Merge: 92cc3b4 e0bd66a
+Author: Mariugiraldo <93294912+Mariugiraldo@users.noreply.github.com>
+Date:   Fri Mar 22 14:07:58 2024 -0500
+
+    Merge pull request #2 from Mariugiraldo/mariagiraldo
+    
+    Mariagiraldo
+
+[33mcommit e0bd66af78bb79170e237d3358f362d8b9b76c95[m
+Author: maria.eugenia <mariugiraldo40@gmail.com>
+Date:   Fri Mar 22 14:04:12 2024 -0500
+
+    conexión exitosa bd
+
+[33mcommit b750f4e3dc728976382f3ee902a2f7716607906c[m
+Author: maria.eugenia <mariugiraldo40@gmail.com>
+Date:   Thu Mar 21 21:46:41 2024 -0500
+
+    conexión bd
+
+[33mcommit 2c2fb38623fa60023984e4fdb22e740aca5a2085[m
+Author: maria.eugenia <mariugiraldo40@gmail.com>
+Date:   Thu Mar 21 19:42:14 2024 -0500
+
+    flujo dentist
+
+[33mcommit 92cc3b4d9f8459fd548ea3cf322ec5cf9abccf95[m
+Merge: 70cf62e 399dcfe
+Author: Mariugiraldo <93294912+Mariugiraldo@users.noreply.github.com>
+Date:   Thu Mar 21 09:44:12 2024 -0500
+
+    Merge pull request #1 from Mariugiraldo/mariagiraldo
+    
+    estructura carpetas
+
+[33mcommit 399dcfec246b6a1988efae6488e2d6f779483035[m
+Author: maria.eugenia <mariugiraldo40@gmail.com>
+Date:   Thu Mar 21 09:42:32 2024 -0500
+
+    estructura carpetas
+
+[33mcommit 70cf62e12030846dc9f729710716c57bee090b20[m
+Author: maria.eugenia <mariugiraldo40@gmail.com>
+Date:   Wed Mar 20 20:10:19 2024 -0500
+
+    primer commit

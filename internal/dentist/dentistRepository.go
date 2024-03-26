@@ -1,4 +1,5 @@
 package dentist
+
 import (
 	"errors"
 	"repositoryapi/internal/domain"
@@ -7,11 +8,10 @@ import (
 
 type DentistRepository interface {
 	GetByID(id int) (domain.Dentist, error)
-	CreateDentist(dentist domain.Dentist)(domain.Dentist, error)
-	UpdateDentist(dentist domain.Dentist)(domain.Dentist, error)
-	PatchDentist(dentist domain.Dentist)(domain.Dentist, error)
-	DeleteDentist(id int) 
-	
+	CreateDentist(dentist domain.Dentist) (domain.Dentist, error)
+	UpdateDentist(dentist domain.Dentist) (domain.Dentist, error)
+	PatchDentist(dentist domain.Dentist) (domain.Dentist, error)
+	DeleteDentist(id int)
 }
 
 type dentistRepository struct {
@@ -31,30 +31,26 @@ func (r *dentistRepository) GetByID(id int) (domain.Dentist, error) {
 	return dentist, nil
 }
 
-func (r *dentistRepository ) CreateDentist(dentist domain.Dentist)(domain.Dentist, error){
-	
+func (r *dentistRepository) CreateDentist(dentist domain.Dentist) (domain.Dentist, error) {
+
 	return r.storage.CreateDentist(dentist)
 
 }
 
-func (r *dentistRepository ) UpdateDentist(dentist domain.Dentist)(domain.Dentist, error){
-	
+func (r *dentistRepository) UpdateDentist(dentist domain.Dentist) (domain.Dentist, error) {
+
 	return r.storage.UpdateDentist(dentist)
 
 }
 
+func (r *dentistRepository) PatchDentist(dentist domain.Dentist) (domain.Dentist, error) {
 
-func (r *dentistRepository ) PatchDentist(dentist domain.Dentist)(domain.Dentist, error){
-	
 	return r.storage.PatchDentist(dentist)
 
 }
 
-func (r *dentistRepository ) DeleteDentist(id int){
+func (r *dentistRepository) DeleteDentist(id int) {
 	r.storage.Delete(id)
 	return
 
 }
-
-
-
