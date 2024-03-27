@@ -28,6 +28,24 @@ const docTemplate = `{
                     "Dentist"
                 ],
                 "summary": "update a dentist",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dentist",
+                        "name": "dentist",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Dentist"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -48,7 +66,25 @@ const docTemplate = `{
                 "tags": [
                     "Dentist"
                 ],
-                "summary": "post a dentist",
+                "summary": "create a dentist",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dentist",
+                        "name": "dentist",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Dentist"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -70,29 +106,24 @@ const docTemplate = `{
                     "Dentist"
                 ],
                 "summary": "update a field dentist",
-                "responses": {
-                    "200": {
-                        "description": "OK",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dentist",
+                        "name": "dentist",
+                        "in": "body",
+                        "required": true,
                         "schema": {
-                            "type": "dentist"
+                            "$ref": "#/definitions/domain.Dentist"
                         }
                     }
-                }
-            }
-        },
-        "/dentists/delete/{id}": {
-            "delete": {
-                "description": "deletes dentist by id",
-                "consumes": [
-                    "application/json"
                 ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Dentist"
-                ],
-                "summary": "deletes a dentist",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -116,6 +147,52 @@ const docTemplate = `{
                     "Dentist"
                 ],
                 "summary": "get a dentist",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Dentist id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "dentist"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "deletes dentist by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Dentist"
+                ],
+                "summary": "deletes a dentist",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Dentist id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -139,6 +216,63 @@ const docTemplate = `{
                     "Shift"
                 ],
                 "summary": "update a shift",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Shift",
+                        "name": "shift",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Shift"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "shift"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "get shift by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Shift"
+                ],
+                "summary": "create a shift",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Shift",
+                        "name": "shift",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Shift"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -160,6 +294,24 @@ const docTemplate = `{
                     "Shift"
                 ],
                 "summary": "update a field shift",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Shift",
+                        "name": "shift",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Shift"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -170,30 +322,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/shifts/delete/{id}": {
-            "delete": {
-                "description": "deletes shift by id",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Shift"
-                ],
-                "summary": "deletes a shift",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "shift"
-                        }
-                    }
-                }
-            }
-        },
-        "/shifts/get/{id}": {
+        "/shifts/{id}": {
             "get": {
                 "description": "get shifts by id",
                 "consumes": [
@@ -206,6 +335,15 @@ const docTemplate = `{
                     "Shift"
                 ],
                 "summary": "get a shift",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Shift id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -215,8 +353,8 @@ const docTemplate = `{
                     }
                 }
             },
-            "post": {
-                "description": "get shift by id",
+            "delete": {
+                "description": "deletes shift by id",
                 "consumes": [
                     "application/json"
                 ],
@@ -226,7 +364,25 @@ const docTemplate = `{
                 "tags": [
                     "Shift"
                 ],
-                "summary": "create a shift",
+                "summary": "deletes a shift",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Shift",
+                        "name": "shift",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/domain.Shift"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -234,6 +390,58 @@ const docTemplate = `{
                             "type": "shift"
                         }
                     }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "domain.Dentist": {
+            "type": "object",
+            "required": [
+                "id",
+                "lastname",
+                "name",
+                "registration"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "registration": {
+                    "type": "string"
+                }
+            }
+        },
+        "domain.Shift": {
+            "type": "object",
+            "required": [
+                "dentist_id",
+                "description",
+                "dischargedate",
+                "id",
+                "patient_id"
+            ],
+            "properties": {
+                "dentist_id": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "dischargedate": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "patient_id": {
+                    "type": "integer"
                 }
             }
         }

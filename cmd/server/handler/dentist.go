@@ -2,12 +2,11 @@ package handler
 
 import (
 	"errors"
+	"github.com/gin-gonic/gin"
 	"repositoryapi/internal/dentist"
 	"repositoryapi/internal/domain"
 	"repositoryapi/pkg/web"
 	"strconv"
-
-	"github.com/gin-gonic/gin"
 )
 
 type dentistHandler struct {
@@ -21,21 +20,14 @@ func NewProductHandler(s dentist.DentistService) *dentistHandler {
 }
 
 // GetById godoc
-// swagger:parameters
-// param
-// 		in: path
-// 		name: id
-// 		schema:
-// 			type: integer
-// 		required: true
-// 		description: identifier
-// @Summary get a dentist
-// @Tags Dentist
-// @Description get dentist by id
-// @Accept json
-// @Produce json
-// @Success 200 {dentist} domain.Dentist
-// @Router /dentists/{id} [get]
+//	@Param			id	path	int	true	"Dentist id"
+//	@Summary		get a dentist
+//	@Tags			Dentist
+//	@Description	get dentist by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{dentist}	domain.Dentist
+//	@Router			/dentists/{id} [get]
 func (h *dentistHandler) GetByID() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
@@ -56,14 +48,15 @@ func (h *dentistHandler) GetByID() gin.HandlerFunc {
 }
 
 // Post godoc
-// swagger:parameters id query
-// @Summary post a dentist
-// @Tags Dentist
-// @Description create dentist
-// @Accept json
-// @Produce json
-// @Success 200 {dentist} domain.Dentist
-// @Router /dentists [post]
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			dentist			body	domain.Dentist	true	"Dentist"
+//	@Summary		create a dentist
+//	@Tags			Dentist
+//	@Description	create dentist
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{dentist}	domain.Dentist
+//	@Router			/dentists [post]
 func (handler *dentistHandler) Post() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var dentist domain.Dentist
@@ -83,14 +76,15 @@ func (handler *dentistHandler) Post() gin.HandlerFunc {
 }
 
 // Put godoc
-// swagger:parameters id query
-// @Summary update a dentist
-// @Tags Dentist
-// @Description update dentist
-// @Accept json
-// @Produce json
-// @Success 200 {dentist} domain.Dentist
-// @Router /dentists [put]
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			dentist			body	domain.Dentist	true	"Dentist"
+//	@Summary		update a dentist
+//	@Tags			Dentist
+//	@Description	update dentist
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{dentist}	domain.Dentist
+//	@Router			/dentists [put]
 func (handler *dentistHandler) Put() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var dentist domain.Dentist
@@ -110,14 +104,15 @@ func (handler *dentistHandler) Put() gin.HandlerFunc {
 }
 
 // Patch godoc
-// swagger:parameters id query
-// @Summary update a field dentist
-// @Tags Dentist
-// @Description update a field dentist
-// @Accept json
-// @Produce json
-// @Success 200 {dentist} domain.Dentist
-// @Router /dentists [patch]
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			dentist			body	domain.Dentist	true	"Dentist"
+//	@Summary		update a field dentist
+//	@Tags			Dentist
+//	@Description	update a field dentist
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{dentist}	domain.Dentist
+//	@Router			/dentists [patch]
 func (handler *dentistHandler) Patch() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var dentist domain.Dentist
@@ -137,14 +132,15 @@ func (handler *dentistHandler) Patch() gin.HandlerFunc {
 }
 
 // DeleteDentist godoc
-// swagger:parameters id query
-// @Summary deletes a dentist
-// @Tags Dentist
-// @Description deletes dentist by id
-// @Accept json
-// @Produce json
-// @Success 200 {dentist} domain.Dentist
-// @Router /dentists/delete/{id} [delete]
+//	@Param			Authorization	header	string	true	"token"
+//	@Param			id				path	int		true	"Dentist id"
+//	@Summary		deletes a dentist
+//	@Tags			Dentist
+//	@Description	deletes dentist by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{dentist}	domain.Dentist
+//	@Router			/dentists/{id} [delete]
 func (h *dentistHandler) Delete() gin.HandlerFunc {
 	return func(c *gin.Context) {
 

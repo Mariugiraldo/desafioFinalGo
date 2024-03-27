@@ -1,3 +1,39 @@
+definitions:
+  domain.Dentist:
+    properties:
+      id:
+        type: integer
+      lastname:
+        type: string
+      name:
+        type: string
+      registration:
+        type: string
+    required:
+    - id
+    - lastname
+    - name
+    - registration
+    type: object
+  domain.Shift:
+    properties:
+      dentist_id:
+        type: integer
+      description:
+        type: string
+      dischargedate:
+        type: string
+      id:
+        type: integer
+      patient_id:
+        type: integer
+    required:
+    - dentist_id
+    - description
+    - dischargedate
+    - id
+    - patient_id
+    type: object
 info:
   contact: {}
 paths:
@@ -6,6 +42,18 @@ paths:
       consumes:
       - application/json
       description: update a field dentist
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dentist
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentist'
       produces:
       - application/json
       responses:
@@ -20,6 +68,18 @@ paths:
       consumes:
       - application/json
       description: create dentist
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dentist
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentist'
       produces:
       - application/json
       responses:
@@ -27,13 +87,25 @@ paths:
           description: OK
           schema:
             type: dentist
-      summary: post a dentist
+      summary: create a dentist
       tags:
       - Dentist
     put:
       consumes:
       - application/json
       description: update dentist
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dentist
+        in: body
+        name: dentist
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentist'
       produces:
       - application/json
       responses:
@@ -45,25 +117,21 @@ paths:
       tags:
       - Dentist
   /dentists/{id}:
-    get:
-      consumes:
-      - application/json
-      description: get dentist by id
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: dentist
-      summary: get a dentist
-      tags:
-      - Dentist
-  /dentists/delete/{id}:
     delete:
       consumes:
       - application/json
       description: deletes dentist by id
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dentist id
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
       responses:
@@ -74,11 +142,43 @@ paths:
       summary: deletes a dentist
       tags:
       - Dentist
+    get:
+      consumes:
+      - application/json
+      description: get dentist by id
+      parameters:
+      - description: Dentist id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: dentist
+      summary: get a dentist
+      tags:
+      - Dentist
   /shifts:
     patch:
       consumes:
       - application/json
       description: update a field shift
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Shift
+        in: body
+        name: shift
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Shift'
       produces:
       - application/json
       responses:
@@ -89,10 +189,48 @@ paths:
       summary: update a field shift
       tags:
       - Shift
+    post:
+      consumes:
+      - application/json
+      description: get shift by id
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Shift
+        in: body
+        name: shift
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Shift'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shift
+      summary: create a shift
+      tags:
+      - Shift
     put:
       consumes:
       - application/json
       description: update shift
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Shift
+        in: body
+        name: shift
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Shift'
       produces:
       - application/json
       responses:
@@ -103,11 +241,23 @@ paths:
       summary: update a shift
       tags:
       - Shift
-  /shifts/delete/{id}:
+  /shifts/{id}:
     delete:
       consumes:
       - application/json
       description: deletes shift by id
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Shift
+        in: body
+        name: shift
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Shift'
       produces:
       - application/json
       responses:
@@ -118,11 +268,16 @@ paths:
       summary: deletes a shift
       tags:
       - Shift
-  /shifts/get/{id}:
     get:
       consumes:
       - application/json
       description: get shifts by id
+      parameters:
+      - description: Shift id
+        in: path
+        name: id
+        required: true
+        type: integer
       produces:
       - application/json
       responses:
@@ -131,20 +286,6 @@ paths:
           schema:
             type: shifts
       summary: get a shift
-      tags:
-      - Shift
-    post:
-      consumes:
-      - application/json
-      description: get shift by id
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: shift
-      summary: create a shift
       tags:
       - Shift
 swagger: "2.0"
