@@ -2,13 +2,12 @@ package handler
 
 import (
 	"errors"
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"repositoryapi/internal/domain"
 	"repositoryapi/internal/patient"
 	"repositoryapi/pkg/web"
 	"strconv"
-
-	"github.com/gin-gonic/gin"
 )
 
 type patientHandler struct {

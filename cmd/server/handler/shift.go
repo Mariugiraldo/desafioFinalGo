@@ -2,9 +2,8 @@ package handler
 
 import (
 	"errors"
-	"repositoryapi/internal/domain"
-
 	"github.com/gin-gonic/gin"
+	"repositoryapi/internal/domain"
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/web"
 	"strconv"
@@ -19,14 +18,14 @@ func NewShiftHandler(s shift.ShiftService) *shiftHandler {
 }
 
 // GetById godoc
-// swagger:parameters id query
-// @Summary get a shift
-// @Tags Shift
-// @Description get shifts by id
-// @Accept json
-// @Produce json
-// @Success 200 {shifts} domain.Dentist
-// @Router /shifts/get/{id} [get]
+//	@Param			id	path	int	true	"Shift id"
+//	@Summary		get a shift
+//	@Tags			Shift
+//	@Description	get shifts by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{shifts}	domain.Shift
+//	@Router			/shifts/{id} [get]
 func (h *shiftHandler) GetByIDShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
@@ -47,14 +46,15 @@ func (h *shiftHandler) GetByIDShift() gin.HandlerFunc {
 }
 
 // CreateShift godoc
-// swagger:parameters id query
-// @Summary create a shift
-// @Tags Shift
-// @Description get shift by id
-// @Accept json
-// @Produce json
-// @Success 200 {shift} domain.Dentist
-// @Router /shifts/get/{id} [post]
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			shift			body	domain.Shift	true	"Shift"
+//	@Summary		create a shift
+//	@Tags			Shift
+//	@Description	get shift by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{shift}	domain.Shift
+//	@Router			/shifts [post]
 func (h *shiftHandler) CreateShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var shift domain.Shift
@@ -75,14 +75,15 @@ func (h *shiftHandler) CreateShift() gin.HandlerFunc {
 }
 
 // Put godoc
-// swagger:parameters id query
-// @Summary update a shift
-// @Tags Shift
-// @Description update shift
-// @Accept json
-// @Produce json
-// @Success 200 {shift} domain.Shift
-// @Router /shifts [put]
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			shift			body	domain.Shift	true	"Shift"
+//	@Summary		update a shift
+//	@Tags			Shift
+//	@Description	update shift
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{shift}	domain.Shift
+//	@Router			/shifts [put]
 func (handler *shiftHandler) PutShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var shift domain.Shift
@@ -102,14 +103,15 @@ func (handler *shiftHandler) PutShift() gin.HandlerFunc {
 }
 
 // DeleteShift godoc
-// swagger:parameters id query
-// @Summary deletes a shift
-// @Tags Shift
-// @Description deletes shift by id
-// @Accept json
-// @Produce json
-// @Success 200 {shift} domain.Shift
-// @Router /shifts/delete/{id} [delete]
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			shift			body	domain.Shift	true	"Shift"
+//	@Summary		deletes a shift
+//	@Tags			Shift
+//	@Description	deletes shift by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{shift}	domain.Shift
+//	@Router			/shifts/{id} [delete]
 func (h *shiftHandler) DeleteShift() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
@@ -125,14 +127,16 @@ func (h *shiftHandler) DeleteShift() gin.HandlerFunc {
 
 }
 
-// swagger:parameters id query
-// @Summary update a field shift
-// @Tags Shift
-// @Description update a field shift
-// @Accept json
-// @Produce json
-// @Success 200 {shift} domain.Shift
-// @Router /shifts [patch]
+// PatchShift godoc
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			shift			body	domain.Shift	true	"Shift"
+//	@Summary		update a field shift
+//	@Tags			Shift
+//	@Description	update a field shift
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{shift}	domain.Shift
+//	@Router			/shifts [patch]
 func (handler *shiftHandler) Patch() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var shift domain.Shift
