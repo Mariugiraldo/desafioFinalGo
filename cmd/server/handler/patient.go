@@ -20,6 +20,15 @@ func NewPatientHandler(s patient.PatientServiceInterface) *patientHandler {
 	}
 }
 
+// Findall godoc
+//
+//	@Summary		get all patients
+//	@Tags			Patient
+//	@Description	get all patients
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{patients}	domain.Patient
+//	@Router			/patients  [get]
 func (h *patientHandler) FindAll() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		patients, _ := h.s.ReadAllPatient()
@@ -27,6 +36,16 @@ func (h *patientHandler) FindAll() gin.HandlerFunc {
 	}
 }
 
+// FindPatientById godoc
+//
+//	@Param			id	path	int	true	"Patient id"
+//	@Summary		get a patient
+//	@Tags			Patient
+//	@Description	get patients by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{patients}	domain.Patient
+//	@Router			/patients/{id} [get]
 func (h *patientHandler) FindPatientById() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		idParam := c.Param("id")
@@ -45,6 +64,17 @@ func (h *patientHandler) FindPatientById() gin.HandlerFunc {
 	}
 }
 
+// CreatePatient godoc
+//
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			patient			body	domain.Patient	true	"patient"
+//	@Summary		create a patient
+//	@Tags			Patient
+//	@Description	get patient by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{patient}	domain.Patient
+//	@Router			/patients [post]
 func (handler *patientHandler) CreatePatient() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var patient domain.Patient
@@ -62,6 +92,17 @@ func (handler *patientHandler) CreatePatient() gin.HandlerFunc {
 	}
 }
 
+// UpdatePatient godoc
+//
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			patient			body	domain.Patient	true	"Patient"
+//	@Summary		update a patient
+//	@Tags			Patient
+//	@Description	update patient
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{patient}	domain.Patient
+//	@Router			/patients [put]
 func (handler *patientHandler) UpdatePatient() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var patient domain.Patient
@@ -79,6 +120,17 @@ func (handler *patientHandler) UpdatePatient() gin.HandlerFunc {
 	}
 }
 
+// PatchPatient godoc
+//
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			patient			body	domain.Patient	true	"Patient"
+//	@Summary		update a field patient
+//	@Tags			Patient
+//	@Description	update a field patient
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{patient}	domain.patient
+//	@Router			/patients [patch]
 func (handler *patientHandler) PatchPatient() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var patient domain.Patient
@@ -96,6 +148,17 @@ func (handler *patientHandler) PatchPatient() gin.HandlerFunc {
 	}
 }
 
+// DeletePatient godoc
+//
+//	@Param			Authorization	header	string	true	"token"
+//	@Param			id			path		string	true	"Patient"
+//	@Summary		deletes a patient
+//	@Tags			Patient
+//	@Description	deletes patient by id
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{patient}	domain.Patient
+//	@Router			/patients/{id} [delete]
 func (handler *patientHandler) DeletePatient(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

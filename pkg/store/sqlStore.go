@@ -170,7 +170,6 @@ func (s *sqlStore) CreateShiftByDNIAndRegistration(dni string, registration stri
 	return shift, nil
 }
 
-
 func (s *sqlStore) ReadShiftByDNI(dni string) (domain.Shift, error) {
 	query := "SELECT * FROM patients WHERE dni = ?;"
 	row := s.db.QueryRow(query, dni)

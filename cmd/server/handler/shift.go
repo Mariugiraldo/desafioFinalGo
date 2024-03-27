@@ -111,8 +111,8 @@ func (handler *shiftHandler) PutShift() gin.HandlerFunc {
 
 // DeleteShift godoc
 //
-//	@Param			Authorization	header	string			true	"token"
-//	@Param			shift			body	domain.Shift	true	"Shift"
+//	@Param			Authorization	header	string	true	"token"
+//	@Param			id				path	string	true	"Shift"
 //	@Summary		deletes a shift
 //	@Tags			Shift
 //	@Description	deletes shift by id
@@ -165,9 +165,10 @@ func (handler *shiftHandler) Patch() gin.HandlerFunc {
 }
 
 // CreateShiftByDNIAndRegistration godoc
-//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			shift			body	domain.Shift	true	"Shift"
+//	@Param			dni				path	string			true	"dni"
+//	@Param			registration	path	string			true	"registration"
 //	@Summary		create a shift by dni and registration
 //	@Tags			Shift
 //	@Description	create a shift by dni and registration
@@ -175,7 +176,6 @@ func (handler *shiftHandler) Patch() gin.HandlerFunc {
 //	@Produce		json
 //	@Success		200	{shift}	domain.Shift
 //	@Router			/shifts/{dni}/{registration} [post]
-
 func (handler *shiftHandler) CreateShiftByDNIAndRegistration() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		dni := c.Param("dni")
@@ -192,7 +192,6 @@ func (handler *shiftHandler) CreateShiftByDNIAndRegistration() gin.HandlerFunc {
 
 		var shift domain.Shift
 
-		
 		if err := c.ShouldBindJSON(&shift); err != nil {
 			c.JSON(400, gin.H{"error": err.Error()})
 			return
@@ -210,7 +209,6 @@ func (handler *shiftHandler) CreateShiftByDNIAndRegistration() gin.HandlerFunc {
 }
 
 // ReadShiftByDNI godoc
-//
 //	@Param			dni	path	string	true	"dni"
 //	@Summary		get a shift by dni
 //	@Tags			Shift

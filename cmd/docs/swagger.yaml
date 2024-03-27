@@ -15,6 +15,21 @@ definitions:
     - name
     - registration
     type: object
+  domain.Patient:
+    properties:
+      DNI:
+        type: string
+      dischargedate:
+        type: string
+      home:
+        type: string
+      id:
+        type: integer
+      lastname:
+        type: string
+      name:
+        type: string
+    type: object
   domain.Shift:
     properties:
       dentist_id:
@@ -28,11 +43,8 @@ definitions:
       patient_id:
         type: integer
     required:
-    - dentist_id
     - description
     - dischargedate
-    - id
-    - patient_id
     type: object
 info:
   contact: {}
@@ -162,6 +174,145 @@ paths:
       summary: get a dentist
       tags:
       - Dentist
+  /patients:
+    get:
+      consumes:
+      - application/json
+      description: get all patients
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: patients
+      summary: get all patients
+      tags:
+      - Patient
+    patch:
+      consumes:
+      - application/json
+      description: update a field patient
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Patient
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Patient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: patient
+      summary: update a field patient
+      tags:
+      - Patient
+    post:
+      consumes:
+      - application/json
+      description: get patient by id
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: patient
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Patient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: patient
+      summary: create a patient
+      tags:
+      - Patient
+    put:
+      consumes:
+      - application/json
+      description: update patient
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Patient
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Patient'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: patient
+      summary: update a patient
+      tags:
+      - Patient
+  /patients/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: deletes patient by id
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Patient
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: patient
+      summary: deletes a patient
+      tags:
+      - Patient
+    get:
+      consumes:
+      - application/json
+      description: get patients by id
+      parameters:
+      - description: Patient id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: patients
+      summary: get a patient
+      tags:
+      - Patient
   /shifts:
     patch:
       consumes:
@@ -241,11 +392,32 @@ paths:
       summary: update a shift
       tags:
       - Shift
-  /shifts/{id}:
-    delete:
+  /shifts/{dni}:
+    get:
       consumes:
       - application/json
-      description: deletes shift by id
+      description: get a shift by dni
+      parameters:
+      - description: dni
+        in: path
+        name: dni
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shift
+      summary: get a shift by dni
+      tags:
+      - Shift
+  /shifts/{dni}/{registration}:
+    post:
+      consumes:
+      - application/json
+      description: create a shift by dni and registration
       parameters:
       - description: token
         in: header
@@ -258,6 +430,42 @@ paths:
         required: true
         schema:
           $ref: '#/definitions/domain.Shift'
+      - description: dni
+        in: path
+        name: dni
+        required: true
+        type: string
+      - description: registration
+        in: path
+        name: registration
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: shift
+      summary: create a shift by dni and registration
+      tags:
+      - Shift
+  /shifts/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: deletes shift by id
+      parameters:
+      - description: token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Shift
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
       - application/json
       responses:

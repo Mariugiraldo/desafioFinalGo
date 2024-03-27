@@ -20,6 +20,7 @@ func NewProductHandler(s dentist.DentistService) *dentistHandler {
 }
 
 // GetById godoc
+//
 //	@Param			id	path	int	true	"Dentist id"
 //	@Summary		get a dentist
 //	@Tags			Dentist
@@ -48,6 +49,7 @@ func (h *dentistHandler) GetByID() gin.HandlerFunc {
 }
 
 // Post godoc
+//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			dentist			body	domain.Dentist	true	"Dentist"
 //	@Summary		create a dentist
@@ -76,6 +78,7 @@ func (handler *dentistHandler) Post() gin.HandlerFunc {
 }
 
 // Put godoc
+//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			dentist			body	domain.Dentist	true	"Dentist"
 //	@Summary		update a dentist
@@ -104,6 +107,7 @@ func (handler *dentistHandler) Put() gin.HandlerFunc {
 }
 
 // Patch godoc
+//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			dentist			body	domain.Dentist	true	"Dentist"
 //	@Summary		update a field dentist
@@ -132,6 +136,7 @@ func (handler *dentistHandler) Patch() gin.HandlerFunc {
 }
 
 // DeleteDentist godoc
+//
 //	@Param			Authorization	header	string	true	"token"
 //	@Param			id				path	int		true	"Dentist id"
 //	@Summary		deletes a dentist
