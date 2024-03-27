@@ -12,6 +12,8 @@ type ShiftRepository interface {
 	UpdateShift(domain.Shift) (domain.Shift, error)
 	DeleteShift(id int)
 	PatchShift(shift domain.Shift) (domain.Shift, error)
+	CreateShiftByDNIAndRegistration(dni string, registration string, shift domain.Shift) (domain.Shift, error)
+	ReadShiftByDNI(dni string) (domain.Shift, error)
 }
 
 type shiftRepository struct {
@@ -53,4 +55,12 @@ func (r *shiftRepository) PatchShift(shift domain.Shift) (domain.Shift, error) {
 
 	return r.storage.PatchShift(shift)
 
+}
+
+func (r *shiftRepository) CreateShiftByDNIAndRegistration(dni string, registration string, shift domain.Shift) (domain.Shift, error) {
+	return r.storage.CreateShiftByDNIAndRegistration(dni, registration, shift)
+}
+
+func (r *shiftRepository) ReadShiftByDNI(dni string) (domain.Shift, error) {
+	return r.storage.ReadShiftByDNI(dni)
 }

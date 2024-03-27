@@ -14,6 +14,9 @@ type StoreInterface interface {
 	UpdateShift(domain.Shift) (domain.Shift, error)
 	DeleteShift(id int)
 	PatchShift(domain.Shift) (domain.Shift, error)
+	CreateShiftByDNIAndRegistration(dni string, registration string, shift domain.Shift) (domain.Shift, error)
+	// traer turno por DNI del paciente. Debe traer el detalle del turno(Fecha-Hora, descripción, Paciente y Dentista) y el dni deberá ser recibido por QueryParams.
+	ReadShiftByDNI(dni string) (domain.Shift, error)
 }
 
 type PatientStoreInterface interface {
