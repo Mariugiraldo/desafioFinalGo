@@ -17,7 +17,7 @@ import (
 
 func main() {
 
-	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/turnos-odontologia")
+	db, err := sql.Open("mysql", "root:Jeifer05@tcp(localhost:3306)/turnos-odontologia")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -76,6 +76,8 @@ func main() {
 		shifts.PUT("", middleware.Authentication(), shiftHandler.PutShift())
 		shifts.DELETE("/:id", middleware.Authentication(), shiftHandler.DeleteShift())
 		shifts.PATCH("", middleware.Authentication(), shiftHandler.Patch())
+		shifts.POST("/:dni/:registration", middleware.Authentication(), shiftHandler.CreateShiftByDNIAndRegistration())
+		shifts.GET("/dni/:dni", shiftHandler.ReadShiftByDNI())
 
 	}
 

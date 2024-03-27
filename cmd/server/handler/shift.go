@@ -1,12 +1,16 @@
 package handler
 
 import (
+	"bytes"
 	"errors"
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"io"
 	"repositoryapi/internal/domain"
 	"repositoryapi/internal/shift"
 	"repositoryapi/pkg/web"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 type shiftHandler struct {
@@ -18,6 +22,7 @@ func NewShiftHandler(s shift.ShiftService) *shiftHandler {
 }
 
 // GetById godoc
+//
 //	@Param			id	path	int	true	"Shift id"
 //	@Summary		get a shift
 //	@Tags			Shift
@@ -46,6 +51,7 @@ func (h *shiftHandler) GetByIDShift() gin.HandlerFunc {
 }
 
 // CreateShift godoc
+//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			shift			body	domain.Shift	true	"Shift"
 //	@Summary		create a shift
@@ -75,6 +81,7 @@ func (h *shiftHandler) CreateShift() gin.HandlerFunc {
 }
 
 // Put godoc
+//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			shift			body	domain.Shift	true	"Shift"
 //	@Summary		update a shift
@@ -103,6 +110,7 @@ func (handler *shiftHandler) PutShift() gin.HandlerFunc {
 }
 
 // DeleteShift godoc
+//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			shift			body	domain.Shift	true	"Shift"
 //	@Summary		deletes a shift
@@ -128,6 +136,7 @@ func (h *shiftHandler) DeleteShift() gin.HandlerFunc {
 }
 
 // PatchShift godoc
+//
 //	@Param			Authorization	header	string			true	"token"
 //	@Param			shift			body	domain.Shift	true	"Shift"
 //	@Summary		update a field shift
@@ -152,5 +161,72 @@ func (handler *shiftHandler) Patch() gin.HandlerFunc {
 		}
 
 		c.JSON(200, shift)
+	}
+}
+
+// CreateShiftByDNIAndRegistration godoc
+//
+//	@Param			Authorization	header	string			true	"token"
+//	@Param			shift			body	domain.Shift	true	"Shift"
+//	@Summary		create a shift by dni and registration
+//	@Tags			Shift
+//	@Description	create a shift by dni and registration
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{shift}	domain.Shift
+//	@Router			/shifts/{dni}/{registration} [post]
+
+func (handler *shiftHandler) CreateShiftByDNIAndRegistration() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		dni := c.Param("dni")
+		registration := c.Param("registration")
+
+		bodyBytes, err := io.ReadAll(c.Request.Body)
+		if err != nil {
+			c.JSON(500, gin.H{"error": "failed to read request body"})
+			return
+		}
+
+		c.Request.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+		fmt.Println("Request body: ", string(bodyBytes))
+
+		var shift domain.Shift
+
+		
+		if err := c.ShouldBindJSON(&shift); err != nil {
+			c.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+		fmt.Println("juajuajua", dni, registration, shift)
+
+		shift, err = handler.service.CreateShiftByDNIAndRegistration(dni, registration, shift)
+		if err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(200, shift)
+	}
+}
+
+// ReadShiftByDNI godoc
+//
+//	@Param			dni	path	string	true	"dni"
+//	@Summary		get a shift by dni
+//	@Tags			Shift
+//	@Description	get a shift by dni
+//	@Accept			json
+//	@Produce		json
+//	@Success		200	{shift}	domain.Shift
+//	@Router			/shifts/{dni} [get]
+func (handler *shiftHandler) ReadShiftByDNI() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		dni := c.Param("dni")
+		shift, err := handler.service.ReadShiftByDNI(dni)
+		if err != nil {
+			web.Failure(c, 404, errors.New("shift not found"))
+			return
+		}
+		web.Success(c, 200, shift)
 	}
 }
